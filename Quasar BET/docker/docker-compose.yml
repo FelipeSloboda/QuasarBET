@@ -1,0 +1,39 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE:      ${MYSQL_DATABASE}
+      MYSQL_USER:          ${MYSQL_USER}
+      MYSQL_PASSWORD:      ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} 
+    volumes:
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf #ARQUIVO MY.CNF
+      - ./mysql/start.sql:/docker-entrypoint-initdb.d/start.sql #ARQUIVO START.SQL
+      - db_data:/var/lib/mysql #VOLUME DB_DATA
+    ports:
+      - "3306:3306"
+    networks:
+      - network
+  
+  quasarbet-api:
+    image: maven:3.9.9-eclipse-temurin-21
+    container_name: quasarbet-api
+    working_dir: /app
+    volumes:
+      - ../projeto/quasarbet-api/:/app
+    command: mvn spring-boot:run
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    networks:
+      - network
+
+volumes:
+  db_data:
+
+networks:
+  network:
+    driver: bridge
