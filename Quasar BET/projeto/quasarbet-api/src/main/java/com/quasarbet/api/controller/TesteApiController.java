@@ -8,7 +8,7 @@ public class TesteApiController {
 
     @GetMapping("/")
     public String home() {
-        return "QuasarBET API >>> OK";
+        return "QuasarBET API : OK";
     }
 
 }
