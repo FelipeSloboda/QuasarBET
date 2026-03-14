@@ -10,15 +10,10 @@
 	</parent>
 
 	<groupId>com.quasarbet</groupId>
-
 	<artifactId>quasarbet-api</artifactId>
-
 	<version>0.0.1-SNAPSHOT</version>
-
 	<name>QuasarBET</name>
-
 	<description>API QuasarBET</description>
-	
 	<url/>
 
 	<licenses>
@@ -41,15 +36,24 @@
 	</properties>
 
 	<dependencies>
+		<!-- SPRING BOOT WEB -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<!-- SPRING BOOT TESTE -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<!-- SWAGGER -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
 		</dependency>
 	</dependencies>
 
