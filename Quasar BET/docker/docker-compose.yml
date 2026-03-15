@@ -6,6 +6,8 @@ services:
       POSTGRES_USER: ${PSTG_USER}
       POSTGRES_PASSWORD: ${PSTG_PASSWORD}
       POSTGRES_DB: ${PSTG_DATABASE}
+    env_file:
+      - .env
     volumes:
       - ./postgre/config.cnf:/etc/postgresql/config.cnf #ARQUIVO POSTGRES_CONFIG.CNF
       - ./postgre/start.sql:/docker-entrypoint-initdb.d/start.sql #ARQUIVO POSTGRES_START.SQL
@@ -20,6 +22,8 @@ services:
     image: maven:3.9.9-eclipse-temurin-21
     container_name: quasarbet-api
     working_dir: /app
+    env_file:
+      - .env
     volumes:
       - ../projeto/quasarbet-api/:/app
     command: mvn spring-boot:run
