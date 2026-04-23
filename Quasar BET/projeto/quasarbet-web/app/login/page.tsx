@@ -1,14 +1,14 @@
 import Link from "next/link";
 
-export default function Home() {
+export default function Login() {
   return (
     <div>
-      <p>Home</p>
+      <p>Login</p>
 
         <br/>
 
       <ul>
-        <li><Link href="/login">Login</Link></li>
+        <li><Link href="/">Home</Link></li>
         <li><Link href="/forgot-password">Forgot Password</Link></li>
         <li><Link href="/reset-password">Reset Password</Link></li>
         <li><Link href="/register">Register</Link></li>
