@@ -1,19 +1,20 @@
 services:
-  mysql:
-    image: mysql:8.4
-    container_name: mysql
-    restart: unless-stopped
+  postgres-db:
+    image: postgres:18.1
+    container_name: postgres-db
     environment:
-      MYSQL_DATABASE:      ${MYSQL_DATABASE}
-      MYSQL_USER:          ${MYSQL_USER}
-      MYSQL_PASSWORD:      ${MYSQL_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} 
+      POSTGRES_USER: ${PSTG_USER}
+      POSTGRES_PASSWORD: ${PSTG_PASSWORD}
+      POSTGRES_DB: ${PSTG_DATABASE}
+    env_file:
+      - .env
     volumes:
-      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf #ARQUIVO MY.CNF
-      - ./mysql/start.sql:/docker-entrypoint-initdb.d/start.sql #ARQUIVO START.SQL
-      - db_data:/var/lib/mysql #VOLUME DB_DATA
+      - ./postgre/config.cnf:/etc/postgresql/config.cnf #ARQUIVO POSTGRES_CONFIG.CNF
+      - ./postgre/start.sql:/docker-entrypoint-initdb.d/start.sql #ARQUIVO POSTGRES_START.SQL
+      - db_data:/var/lib/postgresql #VOLUME DB_POSTGRES
     ports:
-      - "3306:3306"
+      - "5432:5432"
+    command: postgres -c config_file=/etc/postgresql/config.cnf
     networks:
       - network
   
@@ -21,13 +22,31 @@ services:
     image: maven:3.9.9-eclipse-temurin-21
     container_name: quasarbet-api
     working_dir: /app
+    env_file:
+      - .env
     volumes:
-      - ../projeto/quasarbet-api/:/app
+      - ${DIR_API}:/app
     command: mvn spring-boot:run
     depends_on:
-      - mysql
+      - postgres-db
     ports:
       - "8080:8080"
+    networks:
+      - network
+
+  quasarbet-web:
+    image: node:24.15.0-bookworm
+    container_name: quasarbet-web
+    working_dir: /app
+    env_file:
+      - .env
+    volumes:
+      - ${DIR_WEB}:/app
+    command: sh -c "npm install && npm run dev"
+    depends_on:
+      - quasarbet-api
+    ports:
+      - "3000:3000"
     networks:
       - network
 
