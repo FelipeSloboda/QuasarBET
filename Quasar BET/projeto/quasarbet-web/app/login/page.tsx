@@ -52,18 +52,18 @@ export default function Login() {
             type="submit"
             className="btn-primary w-full text-white font-bold py-3 rounded-md uppercase tracking-widest mt-2 flex items-center justify-center gap-2"
           >
-            LOGIN
             <LogIn className="w-5 h-5" />
+            LOGIN
           </button>
 
           {/* Botão Cadastro */}
           <div className="text-center mt-1">
             <Link
               href="/register"
-              className="btn-secondary inline-flex items-center gap-2 text-white font-semibold text-sm px-6 py-2 rounded-md uppercase tracking-wider"
-            >
+              className="btn-secondary w-full text-white font-bold py-3 rounded-md uppercase tracking-widest mt-2 flex items-center justify-center gap-2"
+          >
               <UserPlus className="w-4 h-4" />
-              Cadastre-se agora
+              CADASTRE-SE AGORA
             </Link>
           </div>
 
