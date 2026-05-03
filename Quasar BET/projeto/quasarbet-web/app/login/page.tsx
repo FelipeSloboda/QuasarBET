@@ -15,6 +15,7 @@ export default function Login() {
             width={360}
             height={90}
             priority
+            className="w-full max-w-[360px] h-auto"
           />
         </div>
 
