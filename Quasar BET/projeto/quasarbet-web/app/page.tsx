@@ -64,7 +64,7 @@ export default function Home() {
 
           <Link href="/terms" className="link-focus text-sm flex items-center gap-2 hover:text-white transition-colors">
             <FileText className="w-4 h-4" style={{ color: "var(--color-secondary)" }} />
-            Termos e condições
+            Termos e regulamentos
           </Link>
 
         </div>
