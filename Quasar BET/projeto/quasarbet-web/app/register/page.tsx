@@ -74,6 +74,25 @@ export default function Register() {
             </button>
           </div>
 
+          {/* Checkbox termos e regulamentos */}
+          <div className="flex items-start gap-3 mt-4 mb-4">
+            <input
+              type="checkbox"
+              id="terms-checkbox"
+              className="w-5 h-5 mt-0.5 cursor-pointer accent-blue-500"
+            />
+            <label htmlFor="terms-checkbox" className="text-sm leading-relaxed cursor-pointer">
+              Aceito com os{" "}
+              <Link
+                href="/terms"
+                className="text-blue-500 hover:text-blue-600 hover:underline font-semibold transition"
+                target="_blank"
+              >
+                termos e regulamentos
+              </Link>
+            </label>
+          </div>
+
           {/* Botão Cadastrar */}
           <button
             type="submit"
