@@ -13,14 +13,14 @@
   --color-primary:        #16a34a;
   --color-primary-hover:  #22c55e;
 
-  /* BUTTONS — secondary (laranja) */
-  --color-secondary:        #f97316;
-  --color-secondary-hover:  #fb923c;
+  /* BUTTONS — secondary (ciano) */
+  --color-secondary:        #0891b2;
+  --color-secondary-hover:  #06b6d4;
 
   /* INPUTS */
   --color-input-bg:     #1a2035;
   --color-input-border: #2a3050;
-  --color-input-focus:  #f97316;
+  --color-input-focus:  #06b6d4;
 
   /* TEXT */
   --color-text-default: #9ca3af;
@@ -90,7 +90,7 @@ a { /* reseta css dos links */
 }
 .btn-secondary:hover {
   background-color: var(--color-secondary-hover);
-  box-shadow: 0 10px 20px -5px rgba(124, 45, 18, 0.5);
+  box-shadow: 0 10px 20px -5px rgba(6, 182, 212, 0.5);
 }
 .btn-secondary:active {
   background-color: var(--color-secondary);
