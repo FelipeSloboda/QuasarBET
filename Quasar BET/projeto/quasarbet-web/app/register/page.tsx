@@ -3,7 +3,7 @@
 import DateInput from "@/components/DateInput";
 import Link from "next/link";
 import Image from "next/image";
-import { UserPlus } from "lucide-react";
+import { UserPlus, User, CreditCard, Mail, Phone, Calendar, Lock } from "lucide-react";
 
 export default function Register() {
   return (
@@ -22,46 +22,72 @@ export default function Register() {
           />
         </div>
 
+        {/* Título */}
+        <div className="w-full text-center mb-6 flex flex-col gap-2">
+          <h1 className="text-white text-xl font-bold uppercase tracking-widest">
+            CRIE SUA CONTA
+          </h1>
+          <p className="link-focus text-sm leading-relaxed">
+            Cadastre-se agora e comece a lucrar.
+          </p>
+        </div>
+
         {/* Formulário */}
         <form className="w-full flex flex-col gap-4">
 
           {/* Nome Completo */}
-          <input
-            type="text"
-            placeholder="Nome completo"
-            className="input-base w-full rounded-md px-4 py-3"
-          />
+          <div className="relative w-full">
+            <User className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
+            <input
+              type="text"
+              placeholder="Nome completo"
+              className="input-base w-full rounded-md pl-10 pr-4 py-3"
+            />
+          </div>
 
           {/* CPF */}
-          <input
-            type="text"
-            placeholder="CPF"
-            className="input-base w-full rounded-md px-4 py-3"
-          />
+          <div className="relative w-full">
+            <CreditCard className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
+            <input
+              type="text"
+              placeholder="CPF"
+              className="input-base w-full rounded-md pl-10 pr-4 py-3"
+            />
+          </div>
 
           {/* E-mail */}
-          <input
-            type="email"
-            placeholder="E-mail"
-            className="input-base w-full rounded-md px-4 py-3"
-          />
+          <div className="relative w-full">
+            <Mail className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
+            <input
+              type="email"
+              placeholder="E-mail"
+              className="input-base w-full rounded-md pl-10 pr-4 py-3"
+            />
+          </div>
 
           {/* Telefone */}
-          <input
-            type="tel"
-            placeholder="Telefone"
-            className="input-base w-full rounded-md px-4 py-3"
-          />
+          <div className="relative w-full">
+            <Phone className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
+            <input
+              type="tel"
+              placeholder="Telefone"
+              className="input-base w-full rounded-md pl-10 pr-4 py-3"
+            />
+          </div>
 
           {/* Data de Nascimento */}
-          <DateInput />
+          <div className="relative w-full">
+            <Calendar className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none z-10" />
+            <DateInput />
+          </div>
 
           {/* Senha com ícone */}
           <div className="relative w-full">
+            <Lock className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
             <input
               type="password"
               placeholder="Senha"
-              className="input-base w-full rounded-md px-4 py-3"
+              className="input-base w-full rounded-md pl-10 pr-10 py-3"
             />
             <button
               type="button"
@@ -96,7 +122,7 @@ export default function Register() {
           {/* Botão Cadastrar */}
           <button
             type="submit"
-            className="btn-secondary w-full text-white font-bold py-3 rounded-md uppercase tracking-widest mt-2 flex items-center justify-center gap-2"
+            className="btn-primary w-full text-white font-bold py-3 rounded-md uppercase tracking-widest mt-2 flex items-center justify-center gap-2"
           >
             <UserPlus className="w-5 h-5" />
             Cadastrar

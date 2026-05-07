@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { KeyRound, ArrowLeft } from "lucide-react";
+import { KeyRound, ArrowLeft, Mail } from "lucide-react";
 
 export default function ForgotPassword() {
   return (
@@ -34,16 +34,19 @@ export default function ForgotPassword() {
         <form className="w-full flex flex-col gap-4">
 
           {/* Campo E-mail ou CPF */}
-          <input
-            type="text"
-            placeholder="E-mail ou CPF"
-            className="input-base w-full rounded-md px-4 py-3"
-          />
+          <div className="relative w-full">
+            <Mail className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
+            <input
+              type="text"
+              placeholder="E-mail ou CPF"
+              className="input-base w-full rounded-md pl-10 pr-4 py-3"
+            />
+          </div>
 
           {/* Botão Redefinir */}
           <button
             type="submit"
-            className="btn-secondary w-full text-white font-bold py-3 rounded-md uppercase tracking-widest mt-2 flex items-center justify-center gap-2"
+            className="btn-primary w-full text-white font-bold py-3 rounded-md uppercase tracking-widest mt-2 flex items-center justify-center gap-2"
           >
             <KeyRound className="w-5 h-5" />
             ESQUECI MINHA SENHA

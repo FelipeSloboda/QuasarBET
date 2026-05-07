@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { LogIn, UserPlus } from "lucide-react";
+import { LogIn, UserPlus, Mail, Lock } from "lucide-react";
 
 export default function Login() {
   return (
@@ -19,22 +19,36 @@ export default function Login() {
           />
         </div>
 
+        {/* Título */}
+        <div className="w-full text-center mb-6 flex flex-col gap-2">
+          <h1 className="text-white text-xl font-bold uppercase tracking-widest">
+            BEM VINDO DE VOLTA
+          </h1>
+          <p className="link-focus text-sm leading-relaxed">
+            Acesse sua conta e continue lucrando.
+          </p>
+        </div>
+
         {/* Formulário */}
         <form className="w-full flex flex-col gap-4">
 
           {/* Campo E-mail ou CPF */}
-          <input
-            type="text"
-            placeholder="E-mail ou CPF"
-            className="input-base w-full rounded-md px-4 py-3"
-          />
+          <div className="relative w-full">
+            <Mail className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
+            <input
+              type="text"
+              placeholder="E-mail ou CPF"
+              className="input-base w-full rounded-md pl-10 pr-4 py-3"
+            />
+          </div>
 
           {/* Campo Senha com ícone */}
           <div className="relative w-full">
+            <Lock className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
             <input
               type="password"
               placeholder="Senha"
-              className="input-base w-full rounded-md px-4 py-3"
+              className="input-base w-full rounded-md pl-10 pr-10 py-3"
             />
             <button
               type="button"
@@ -53,17 +67,13 @@ export default function Login() {
             className="btn-primary w-full text-white font-bold py-3 rounded-md uppercase tracking-widest mt-2 flex items-center justify-center gap-2"
           >
             <LogIn className="w-5 h-5" />
-            LOGIN
+            ENTRAR
           </button>
 
-          {/* Botão Cadastro */}
+          {/* Cadastre-se */}
           <div className="text-center mt-1">
-            <Link
-              href="/register"
-              className="btn-secondary w-full text-white font-bold py-3 rounded-md uppercase tracking-widest mt-2 flex items-center justify-center gap-2"
-          >
-              <UserPlus className="w-4 h-4" />
-              CADASTRE-SE AGORA
+            <Link href="/register" className="link-focus text-sm">
+              Novo por aqui? Cadastre-se
             </Link>
           </div>
 

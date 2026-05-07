@@ -10,7 +10,7 @@ export default function Home() {
         {/* Logo */}
         <div className="mb-8">
           <Image
-            src="/images/logoQ.png"
+            src="/images/logo.png"
             alt="QuasarBet"
             width={360}
             height={90}
@@ -40,7 +40,7 @@ export default function Home() {
             className="btn-primary w-full text-white font-bold py-3 rounded-md uppercase tracking-widest flex items-center justify-center gap-2"
           >
             <LogIn className="w-5 h-5" />
-            Login
+            ENTRAR
           </Link>
 
           {/* Cadastro */}
@@ -49,7 +49,7 @@ export default function Home() {
             className="btn-secondary w-full text-white font-bold py-3 rounded-md uppercase tracking-widest flex items-center justify-center gap-2"
           >
             <UserPlus className="w-5 h-5" />
-            Cadastre-se agora
+            CADASTRE-SE
           </Link>
 
         </div>

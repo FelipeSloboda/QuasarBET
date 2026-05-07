@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { KeyRound, ArrowLeft } from "lucide-react";
+import { KeyRound, ArrowLeft, Lock } from "lucide-react";
 
 export default function ResetPassword() {
   return (
@@ -35,10 +35,11 @@ export default function ResetPassword() {
 
           {/* Campo Senha 1 com ícone */}
           <div className="relative w-full">
+            <Lock className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
             <input
               type="password"
               placeholder="Senha"
-              className="input-base w-full rounded-md px-4 py-3"
+              className="input-base w-full rounded-md pl-10 pr-10 py-3"
             />
             <button
               type="button"
@@ -53,10 +54,11 @@ export default function ResetPassword() {
 
           {/* Campo Senha 2 com ícone */}
           <div className="relative w-full">
+            <Lock className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
             <input
               type="password"
               placeholder="Confirme a senha"
-              className="input-base w-full rounded-md px-4 py-3"
+              className="input-base w-full rounded-md pl-10 pr-10 py-3"
             />
             <button
               type="button"
