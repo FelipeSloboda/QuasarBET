@@ -9,6 +9,9 @@
   --color-bg-mid:    #1e1e2a;
   --gradient-page:   linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-mid) 50%, var(--color-bg-start) 100%);
 
+  /* BACKGROUND — SECONDARY */
+  --color-bg-secondary:     #1a2035;
+
   /* BUTTONS — primary (verde) */
   --color-primary:        #16a34a;
   --color-primary-hover:  #22c55e;

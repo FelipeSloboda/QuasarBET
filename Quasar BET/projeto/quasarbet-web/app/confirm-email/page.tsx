@@ -43,7 +43,7 @@ export default function ConfirmEmail() {
 
         <div className="w-full space-y-4">
           {isSuccess ? (
-            <div className="rounded-lg border border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 to-emerald-500/0 p-5 backdrop-blur-md">
+            <div className="rounded-lg border border-emerald-500/20 bg-[var(--color-bg-secondary)] p-5 backdrop-blur-md">
               <div className="flex items-center justify-center gap-3 text-center">
                 <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
                 <div className="text-center">
@@ -57,7 +57,7 @@ export default function ConfirmEmail() {
               </div>
             </div>
           ) : (
-            <div className="rounded-lg border border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-amber-500/0 p-5 backdrop-blur-md">
+            <div className="rounded-lg border border-amber-500/20 bg-[var(--color-bg-secondary)] p-5 backdrop-blur-md">
               <div className="flex items-center justify-center gap-3 text-center">
                 <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                 <div className="text-center">
