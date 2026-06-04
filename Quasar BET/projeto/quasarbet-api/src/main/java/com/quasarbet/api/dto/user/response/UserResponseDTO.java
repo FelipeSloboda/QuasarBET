@@ -4,16 +4,16 @@ import java.time.LocalDateTime;
 
 public class UserResponseDTO {
     private Long id;
-    private String referralCode;
-    private String firstName;
+    private String name;
+    private String email;
     private LocalDateTime createdAt;
 
     public UserResponseDTO() {}
 
-    public UserResponseDTO(Long id, String referralCode, String firstName, LocalDateTime createdAt) {
+    public UserResponseDTO(Long id, String name, String email, LocalDateTime createdAt) {
         this.id = id;
-        this.referralCode = referralCode;
-        this.firstName = firstName;
+        this.name = name;
+        this.email = email;
         this.createdAt = createdAt;
     }
 
@@ -25,20 +25,20 @@ public class UserResponseDTO {
         this.id = id;
     }
 
-    public String getReferralCode() {
-        return referralCode;
+    public String getName() {
+        return name;
     }
 
-    public void setReferralCode(String referralCode) {
-        this.referralCode = referralCode;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public LocalDateTime getCreatedAt() {

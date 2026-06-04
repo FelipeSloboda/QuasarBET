@@ -11,82 +11,77 @@ import jakarta.validation.constraints.Size;
 
 public class CreateUserDTO {
     
-    @NotBlank(message = "CPF is required")
+    @NotBlank(message = "CPF é obrigatório")
     @Pattern(
         regexp = "^[0-9]{11}$",
-        message = "CPF must contain exactly 11 digits"
+        message = "CPF deve conter exatamente 11 dígitos"
     )
     private String cpf;
 
-    @NotBlank(message = "Email is required")
-    @Email(message = "Invalid email")
-    @Size(max = 100, message = "Email must have a maximum of 100 characters")
+    @NotBlank(message = "E-mail é obrigatório")
+    @Email(message = "E-mail inválido")
+    @Size(max = 100, message = "E-mail deve ter no máximo 100 caracteres")
     private String email;
 
-    @NotBlank(message = "Country code is required")
+    @NotBlank(message = "Código do país é obrigatório")
     @Pattern(
         regexp = "^[0-9]{1,3}$",
-        message = "Country code must contain between 1 and 3 digits"
+        message = "Código do país deve conter entre 1 e 3 dígitos"
     )
     private String countryCode;
 
-    @NotBlank(message = "Area code is required")
+    @NotBlank(message = "DDD é obrigatório")
     @Pattern(
         regexp = "^[0-9]{2}$",
-        message = "Area code must contain exactly 2 digits"
+        message = "DDD deve conter exatamente 2 dígitos"
     )
     private String areaCode;
 
-    @NotBlank(message = "Phone is required")
+    @NotBlank(message = "Telefone é obrigatório")
     @Pattern(
         regexp = "^[0-9]{9}$",
-        message = "Phone must contain exactly 9 digits"
+        message = "Telefone deve conter exatamente 9 dígitos"
     )
     private String phone;
 
-    @NotBlank(message = "Password is required")
+    @NotBlank(message = "Senha é obrigatória")
     @Size(
         min = 6,
         max = 64,
-        message = "Password must contain between 6 and 64 characters"
+        message = "Senha deve conter entre 6 e 64 caracteres"
     )
     @Pattern(
         regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$",
-        message = "Password must contain uppercase, lowercase and number"
-    )
-    @Size(
-        min = 8,
-        max = 64,
-        message = "Password must contain between 8 and 64 characters"
+        message = "Senha deve conter letra maiúscula, minúscula e número"
     )
     private String password;
 
-    @NotBlank(message = "First name is required")
+    @NotBlank(message = "Nome é obrigatório")
     @Size(
         min = 2,
         max = 50,
-        message = "First name must contain between 2 and 50 characters"
+        message = "Nome deve conter entre 2 e 50 caracteres"
     )
     @Pattern(
         regexp = "^[\\p{L}]+$",
-        message = "First name must contain only letters"
+        message = "Nome deve conter apenas letras"
     )
     private String firstName;
 
-    @NotBlank(message = "Last name is required")
+    @NotBlank(message = "Sobrenome é obrigatório")
     @Size(
         min = 2,
         max = 150,
-        message = "Last name must contain between 2 and 150 characters"
+        message = "Sobrenome deve conter entre 2 e 150 caracteres"
     )
     @Pattern(
         regexp = "^[\\p{L} ]+$",
-        message = "Last name must contain only letters"
+        message = "Sobrenome deve conter apenas letras"
     )
     private String lastName;
 
-    @NotNull(message = "Birth date is required")
-    @Past(message = "Birth date must be in the past")
+    @NotNull(message = "Data de nascimento é obrigatória")
+    @Past(message = "Data de nascimento deve estar no passado")
     private LocalDate birthDate;
 
     public CreateUserDTO() {}

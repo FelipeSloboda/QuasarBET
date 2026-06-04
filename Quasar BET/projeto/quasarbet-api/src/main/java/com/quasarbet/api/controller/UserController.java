@@ -1,6 +1,7 @@
 package com.quasarbet.api.controller;
 
 import jakarta.validation.Valid;
+import com.quasarbet.api.dto.common.ApiResponse;
 import com.quasarbet.api.dto.user.request.CreateUserDTO;
 import com.quasarbet.api.dto.user.response.UserResponseDTO;
 import com.quasarbet.api.service.UserService;
@@ -23,9 +24,10 @@ public class UserController {
 
     @PostMapping
     @Operation(summary = "Create new user")
-    public ResponseEntity<UserResponseDTO> create(@Valid @RequestBody CreateUserDTO createUserDTO) {
+    public ResponseEntity<ApiResponse<UserResponseDTO>> create(@Valid @RequestBody CreateUserDTO createUserDTO) {
         UserResponseDTO createdUser = userService.create(createUserDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.success("Usuário cadastrado com sucesso", createdUser));
     }
     /*
     @GetMapping

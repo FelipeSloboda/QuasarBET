@@ -3,6 +3,8 @@ package com.quasarbet.api.service;
 import com.quasarbet.api.dto.user.request.CreateUserDTO;
 import com.quasarbet.api.dto.user.response.UserResponseDTO;
 import com.quasarbet.api.entity.User;
+import com.quasarbet.api.exception.ResourceConflictException;
+import com.quasarbet.api.exception.ResourceNotFoundException;
 import com.quasarbet.api.repository.UserRepository;
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,11 +33,11 @@ public class UserService {
      */
     public UserResponseDTO create(CreateUserDTO userDTO) {
         if (userRepository.existsByCpf(userDTO.getCpf())) {
-            throw new IllegalArgumentException("CPF already registered");
+            throw new ResourceConflictException("cpf", "ALREADY_EXISTS", "CPF já cadastrado");
         }
 
         if (userRepository.existsByEmail(userDTO.getEmail())) {
-            throw new IllegalArgumentException("Email already registered");
+            throw new ResourceConflictException("email", "ALREADY_EXISTS", "E-mail já cadastrado");
         }
 
         User user = new User();
@@ -63,8 +65,8 @@ public class UserService {
         
         return new UserResponseDTO(
             savedUser.getId(),
-            savedUser.getReferralCode(),
-            savedUser.getFirstName(),
+            savedUser.getFirstName() + " " + savedUser.getLastName(),
+            savedUser.getEmail(),
             savedUser.getCreatedAt()
         );
     }
@@ -96,7 +98,7 @@ public class UserService {
     /*
     public CreateUserDTO getById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+            .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
         return mapToDTO(user);
     }*/
 
@@ -106,7 +108,7 @@ public class UserService {
     /*
     public CreateUserDTO getByEmail(String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+            .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
         return mapToDTO(user);
     }*/
 
@@ -116,7 +118,7 @@ public class UserService {
     /*
     public CreateUserDTO update(Long id, CreateUserDTO userDTO) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+            .orElseThrow(() -> new ResourceNotFoundException("Usuário não encontrado"));
 
         // Validar se email já existe para outro usuário
         if (!user.getEmail().equals(userDTO.getEmail()) && 
@@ -143,7 +145,7 @@ public class UserService {
     /*
     public void delete(Long id) {
         if (!userRepository.existsById(id)) {
-            throw new RuntimeException("Usuário não encontrado");
+            throw new ResourceNotFoundException("Usuário não encontrado");
         }
         userRepository.deleteById(id);
     }*/

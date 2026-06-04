@@ -1,0 +1,20 @@
+package com.quasarbet.api.exception;
+
+public class ResourceConflictException extends RuntimeException {
+    private final String field;
+    private final String code;
+
+    public ResourceConflictException(String field, String code, String message) {
+        super(message);
+        this.field = field;
+        this.code = code;
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public String getCode() {
+        return code;
+    }
+}
