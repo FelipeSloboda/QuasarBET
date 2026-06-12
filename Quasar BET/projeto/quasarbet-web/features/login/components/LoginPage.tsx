@@ -8,7 +8,7 @@ export default function LoginPage() {
       <div className="w-full max-w-sm px-8 py-10 flex flex-col items-center">
         <div className="mb-8">
           <Image
-            src="/images/logo.png"
+            src="/images/logoQB.png"
             alt="QuasarBet"
             width={360}
             height={90}

@@ -11,7 +11,7 @@ export default function NotFound() {
         {/* Logo */}
         <div className="mb-8">
           <Image
-            src="/images/logo.png"
+            src="/images/logoQB.png"
             alt="QuasarBet"
             width={360}
             height={90}

@@ -15,7 +15,7 @@ export default function About() {
       <main className="mx-auto w-full max-w-3xl px-8 py-10 md:py-14">
         <div className="mb-8 flex justify-center">
           <Image
-            src="/images/logo.png"
+            src="/images/logoQB.png"
             alt="QuasarBet"
             width={420}
             height={120}

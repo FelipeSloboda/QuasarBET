@@ -45,7 +45,7 @@ export default function VerifyEmail() {
       <div className="w-full max-w-md px-8 py-10 flex flex-col items-center gap-6">
         <div className="mb-2">
           <Image
-            src="/images/logo.png"
+            src="/images/logoQB.png"
             alt="QuasarBet"
             width={360}
             height={90}

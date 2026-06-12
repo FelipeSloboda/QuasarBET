@@ -15,7 +15,7 @@ export default function Terms() {
       <main className="mx-auto w-full max-w-4xl px-8 py-10 md:py-14">
         <div className="mb-8 flex justify-center">
           <Image
-            src="/images/logo.png"
+            src="/images/logoQB.png"
             alt="QuasarBet"
             width={360}
             height={90}
