@@ -7,10 +7,25 @@ export function normalizeEmail(value: string): string {
 }
 
 export function formatNamePart(value: string): string {
-  return value
+  const sanitizedValue = value
     .replace(/[^A-Za-zÀ-ÖØ-öø-ÿ\s]/g, "")
     .replace(/\s+/g, " ")
     .trimStart();
+
+  const hasTrailingSpace = sanitizedValue.endsWith(" ");
+  const nameWithoutTrailingSpace = sanitizedValue.trimEnd();
+
+  const capitalizedName = nameWithoutTrailingSpace
+    .split(" ")
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toLocaleUpperCase("pt-BR") + part.slice(1).toLocaleLowerCase("pt-BR"))
+    .join(" ");
+
+  if (hasTrailingSpace && capitalizedName.length > 0) {
+    return `${capitalizedName} `;
+  }
+
+  return capitalizedName;
 }
 
 export function formatBirthDate(value: string): string {

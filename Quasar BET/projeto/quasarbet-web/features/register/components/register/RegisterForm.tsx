@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { FormEvent } from "react";
+import type { FormEvent, KeyboardEvent } from "react";
 import Link from "next/link";
 import { Calendar, CreditCard, Eye, EyeOff, Gift, Globe, Lock, Mail, Phone, User, UserPlus} from "lucide-react";
 import BaseButton from "@/components/ui/BaseButton";
@@ -117,7 +117,7 @@ export default function RegisterForm() {
       case "birthDate":
         return formatBirthDate(inputValue);
       case "password":
-        return inputValue.slice(0, 64);
+        return inputValue.replace(/\s+/g, "").slice(0, 64);
       case "referralCode":
         return formatReferralCode(inputValue);
       default:
@@ -169,6 +169,20 @@ export default function RegisterForm() {
   };
 
   const handleFieldBlur = (field: RegisterTextFieldName) => {
+    if (field === "firstName") {
+      setValues((previousValues) => ({
+        ...previousValues,
+        firstName: previousValues.firstName.trim(),
+      }));
+    }
+
+    if (field === "email") {
+      setValues((previousValues) => ({
+        ...previousValues,
+        email: normalizeEmail(previousValues.email).trimEnd(),
+      }));
+    }
+
     setTouchedFields((previousState) => ({
       ...previousState,
       [field]: true,
@@ -246,6 +260,11 @@ export default function RegisterForm() {
         inputMode="email"
         maxLength={100}
         onValueChange={(value) => handleFieldChange("email", value)}
+        onKeyDown={(event: KeyboardEvent<HTMLInputElement>) => {
+          if (event.key === " ") {
+            event.preventDefault();
+          }
+        }}
         onFocus={() => setFocusedField("email")}
         onBlur={() => handleFieldBlur("email")}
         validationState={getFieldValidationState("email")}
@@ -255,7 +274,7 @@ export default function RegisterForm() {
       />
 
       <div className="grid grid-cols-12 gap-2 w-full">
-        <div className="col-span-4">
+        <div className="col-span-3">
           <TextField
             icon={Globe}
             name="countryCode"
@@ -273,7 +292,7 @@ export default function RegisterForm() {
             errorMessage={getFieldErrorMessage("countryCode")}
           />
         </div>
-        <div className="col-span-4">
+        <div className="col-span-3">
           <TextField
             icon={Phone}
             name="areaCode"
@@ -291,7 +310,7 @@ export default function RegisterForm() {
             errorMessage={getFieldErrorMessage("areaCode")}
           />
         </div>
-        <div className="col-span-4">
+        <div className="col-span-6">
           <TextField
             icon={Phone}
             name="phone"
@@ -337,6 +356,11 @@ export default function RegisterForm() {
         autoComplete="new-password"
         maxLength={64}
         onValueChange={(value) => handleFieldChange("password", value)}
+        onKeyDown={(event: KeyboardEvent<HTMLInputElement>) => {
+          if (event.key === " ") {
+            event.preventDefault();
+          }
+        }}
         onFocus={() => setFocusedField("password")}
         onBlur={() => handleFieldBlur("password")}
         validationState={getFieldValidationState("password")}

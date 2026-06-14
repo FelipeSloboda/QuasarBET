@@ -81,7 +81,7 @@ export function validateRegisterField(field: RegisterTextFieldName, values: Regi
 
     case "birthDate": {
       if (!value.trim()) return "Data de nascimento é obrigatória";
-      if (!isPastDateBr(value)) return "Data de nascimento deve estar no passado";
+      if (!isPastDateBr(value)) return "Data de nascimento inválida";
       return null;
     }
 

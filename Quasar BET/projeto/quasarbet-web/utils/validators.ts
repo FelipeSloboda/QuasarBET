@@ -54,5 +54,8 @@ export function isPastDateBr(value: string): boolean {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  return date < today;
+  const minimumAllowedDate = new Date(today);
+  minimumAllowedDate.setFullYear(minimumAllowedDate.getFullYear() - 120);
+
+  return date >= minimumAllowedDate && date < today;
 }
