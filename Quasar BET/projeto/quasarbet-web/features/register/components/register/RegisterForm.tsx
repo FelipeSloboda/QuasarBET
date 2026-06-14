@@ -9,7 +9,9 @@ import TextField from "@/components/form/TextField";
 import type { ValidationState } from "@/components/form/TextField";
 import RegisterTermsField from "@/features/register/components/register/RegisterTermsField";
 import { validateRegisterField, validateRegisterTerms } from "@/features/register/schemas/register.schemas";
-import type { RegisterFormValues, RegisterTextFieldName } from "@/features/register/types/register.types";
+import type { RegisterFormValues, RegisterPayload, RegisterTextFieldName } from "@/features/register/types/register.types";
+import { register } from "@/features/register/services/register.service";
+import type { ApiResponse } from "@/types/api";
 import {
   formatBirthDate,
   formatCpf,
@@ -21,7 +23,7 @@ import {
 } from "@/utils/formatters";
 
 const initialValues: RegisterFormValues = {
-  firstName: "",
+  fullName: "",
   cpf: "",
   email: "",
   countryCode: "55",
@@ -34,7 +36,7 @@ const initialValues: RegisterFormValues = {
 };
 
 const textFields: RegisterTextFieldName[] = [
-  "firstName",
+  "fullName",
   "cpf",
   "email",
   "countryCode",
@@ -46,7 +48,7 @@ const textFields: RegisterTextFieldName[] = [
 ];
 
 const requiredTextFields: RegisterTextFieldName[] = [
-  "firstName",
+  "fullName",
   "cpf",
   "email",
   "countryCode",
@@ -57,7 +59,7 @@ const requiredTextFields: RegisterTextFieldName[] = [
 ];
 
 const emptyTouchedState: Record<RegisterTextFieldName, boolean> = {
-  firstName: false,
+  fullName: false,
   cpf: false,
   email: false,
   countryCode: false,
@@ -80,7 +82,7 @@ export default function RegisterForm() {
 
   const fieldErrors = useMemo(() => {
     const errors: Record<RegisterTextFieldName, string | null> = {
-      firstName: null,
+      fullName: null,
       cpf: null,
       email: null,
       countryCode: null,
@@ -102,7 +104,7 @@ export default function RegisterForm() {
 
   const formatFieldValue = (field: RegisterTextFieldName, inputValue: string): string => {
     switch (field) {
-      case "firstName":
+      case "fullName":
         return formatNamePart(inputValue).slice(0, 100);
       case "cpf":
         return formatCpf(inputValue);
@@ -135,7 +137,7 @@ export default function RegisterForm() {
       case "birthDate":
         return onlyDigits(value).length === 0;
       default:
-        return value.trim().length === 0;
+        return String(value).trim().length === 0;
     }
   };
 
@@ -169,10 +171,10 @@ export default function RegisterForm() {
   };
 
   const handleFieldBlur = (field: RegisterTextFieldName) => {
-    if (field === "firstName") {
+    if (field === "fullName") {
       setValues((previousValues) => ({
         ...previousValues,
-        firstName: previousValues.firstName.trim(),
+        fullName: previousValues.fullName.trim(),
       }));
     }
 
@@ -207,8 +209,33 @@ export default function RegisterForm() {
     setFormMessage(null);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 400));
-      setFormMessage("Estrutura do formulário concluída. Integração com backend fica para o próximo passo.");
+      const nameParts = values.fullName.trim().split(/\s+/);
+      const firstName = nameParts[0];
+      const lastName = nameParts.slice(1).join(" ");
+
+      const [day, month, year] = values.birthDate.split("/");
+
+      const payload: RegisterPayload = {
+        firstName,
+        lastName,
+        cpf: onlyDigits(values.cpf),
+        email: values.email,
+        countryCode: values.countryCode,
+        areaCode: values.areaCode,
+        phone: onlyDigits(values.phone),
+        password: values.password,
+        birthDate: `${year}-${month}-${day}`,
+      };
+
+      const response = await register(payload);
+      setFormMessage(response.message ?? "Cadastro realizado com sucesso!");
+    } catch (error) {
+      const apiError = error as ApiResponse<unknown>;
+      if (apiError?.message) {
+        setFormMessage(apiError.message);
+      } else {
+        setFormMessage("Erro ao realizar cadastro. Tente novamente.");
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -218,19 +245,19 @@ export default function RegisterForm() {
     <form className="w-full flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
       <TextField
         icon={User}
-        name="firstName"
+        name="fullName"
         type="text"
-        value={values.firstName}
+        value={values.fullName}
         placeholder="Nome completo"
         autoComplete="name"
         maxLength={100}
-        onValueChange={(value) => handleFieldChange("firstName", value)}
-        onFocus={() => setFocusedField("firstName")}
-        onBlur={() => handleFieldBlur("firstName")}
-        validationState={getFieldValidationState("firstName")}
-        isFocused={focusedField === "firstName"}
-        isEmpty={getFieldIsEmpty("firstName")}
-        errorMessage={getFieldErrorMessage("firstName")}
+        onValueChange={(value) => handleFieldChange("fullName", value)}
+        onFocus={() => setFocusedField("fullName")}
+        onBlur={() => handleFieldBlur("fullName")}
+        validationState={getFieldValidationState("fullName")}
+        isFocused={focusedField === "fullName"}
+        isEmpty={getFieldIsEmpty("fullName")}
+        errorMessage={getFieldErrorMessage("fullName")}
       />
 
       <TextField
@@ -416,15 +443,13 @@ export default function RegisterForm() {
         className={`w-full mt-2 ${!isFormValid || isSubmitting ? "opacity-55 cursor-not-allowed" : ""}`}
       >
         <UserPlus className="w-5 h-5" />
-        {isSubmitting ? "PROCESSANDO..." : "Cadastrar"}
+        {isSubmitting ? "ENVIANDO..." : "Cadastrar"}
       </BaseButton>
 
-
-
-        <Link href="/login" className="link-focus w-full text-center text-sm flex items-center justify-center gap-1 py-2 hover:text-blue-300 transition">
-          <User className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
-          Já tem uma conta? Faça login
-        </Link>
+      <Link href="/login" className="link-focus w-full text-center text-sm flex items-center justify-center gap-1 py-2 hover:text-blue-300 transition">
+        <User className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
+        Já tem uma conta? Faça login
+      </Link>
     </form>
   );
 }

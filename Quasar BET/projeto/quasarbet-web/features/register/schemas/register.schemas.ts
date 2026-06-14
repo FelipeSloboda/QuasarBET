@@ -13,7 +13,8 @@ import type { RegisterFormValues, RegisterPayload, RegisterTextFieldName } from 
 
 export function validateRegisterPayload(payload: RegisterPayload): string[] {
   const errors: string[] = [];
-  if (!payload.firstName.trim()) errors.push("Nome completo é obrigatório");
+  if (!payload.firstName.trim()) errors.push("Nome é obrigatório");
+  if (!payload.lastName.trim()) errors.push("Sobrenome é obrigatório");
   if (!payload.email.trim()) errors.push("E-mail é obrigatório");
   if (!payload.cpf.trim()) errors.push("CPF é obrigatório");
   if (!payload.countryCode.trim()) errors.push("Código do país é obrigatório");
@@ -28,7 +29,7 @@ export function validateRegisterField(field: RegisterTextFieldName, values: Regi
   const value = values[field];
 
   switch (field) {
-    case "firstName": {
+    case "fullName": {
       const fullName = value.trim();
       if (!fullName) return "Nome completo é obrigatório";
       if (fullName.length > 100) return "Nome completo deve ter no máximo 100 caracteres";
