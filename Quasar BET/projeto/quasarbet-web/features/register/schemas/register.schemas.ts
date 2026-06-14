@@ -5,8 +5,6 @@ import {
   hasMinLength,
   hasNumber,
   hasUppercase,
-  isOnlyLetters,
-  isOnlyLettersAndSpaces,
   isPastDateBr,
   isValidCpfLength,
   isValidEmail,
@@ -15,8 +13,7 @@ import type { RegisterFormValues, RegisterPayload, RegisterTextFieldName } from 
 
 export function validateRegisterPayload(payload: RegisterPayload): string[] {
   const errors: string[] = [];
-  if (!payload.firstName.trim()) errors.push("Nome é obrigatório");
-  if (!payload.lastName.trim()) errors.push("Sobrenome é obrigatório");
+  if (!payload.firstName.trim()) errors.push("Nome completo é obrigatório");
   if (!payload.email.trim()) errors.push("E-mail é obrigatório");
   if (!payload.cpf.trim()) errors.push("CPF é obrigatório");
   if (!payload.countryCode.trim()) errors.push("Código do país é obrigatório");
@@ -32,20 +29,19 @@ export function validateRegisterField(field: RegisterTextFieldName, values: Regi
 
   switch (field) {
     case "firstName": {
-      const firstName = value.trim();
-      if (!firstName) return "Nome é obrigatório";
-      if (!hasMinLength(firstName, 2)) return "Nome deve conter entre 2 e 50 caracteres";
-      if (firstName.length > 50) return "Nome deve conter entre 2 e 50 caracteres";
-      if (!isOnlyLetters(firstName)) return "Nome deve conter apenas letras";
-      return null;
-    }
+      const fullName = value.trim();
+      if (!fullName) return "Nome completo é obrigatório";
+      if (fullName.length > 100) return "Nome completo deve ter no máximo 100 caracteres";
 
-    case "lastName": {
-      const lastName = value.trim();
-      if (!lastName) return "Sobrenome é obrigatório";
-      if (!hasMinLength(lastName, 2)) return "Sobrenome deve conter entre 2 e 150 caracteres";
-      if (lastName.length > 150) return "Sobrenome deve conter entre 2 e 150 caracteres";
-      if (!isOnlyLettersAndSpaces(lastName)) return "Sobrenome deve conter apenas letras";
+      const nameParts = fullName.split(" ").filter(Boolean);
+      if (nameParts.length < 2) return "Digite nome e sobrenome";
+      if (nameParts.some((part) => part.length < 2)) {
+        return "Cada palavra deve ter no mínimo 2 letras";
+      }
+      if (nameParts.some((part) => !/^[\p{L}]+$/u.test(part))) {
+        return "Nome completo deve conter apenas letras";
+      }
+
       return null;
     }
 
@@ -96,12 +92,6 @@ export function validateRegisterField(field: RegisterTextFieldName, values: Regi
       if (!hasUppercase(value) || !hasLowercase(value) || !hasNumber(value)) {
         return "Senha deve conter letra maiúscula, minúscula e número";
       }
-      return null;
-    }
-
-    case "confirmPassword": {
-      if (!value) return "Repita a senha";
-      if (value !== values.password) return "As senhas não coincidem";
       return null;
     }
 

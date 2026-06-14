@@ -11,12 +11,12 @@ export default function NotFound() {
         {/* Logo */}
         <div className="mb-8">
           <Image
-            src="/images/logoQB.png"
+            src="/images/QuasarBET.png"
             alt="QuasarBet"
-            width={360}
-            height={90}
+            width={295}
+            height={74}
             priority
-            className="w-full max-w-[360px] h-auto"
+            className="w-full max-w-[295px] h-auto"
           />
         </div>
 

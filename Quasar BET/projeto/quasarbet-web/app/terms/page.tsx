@@ -15,29 +15,19 @@ export default function Terms() {
       <main className="mx-auto w-full max-w-4xl px-8 py-10 md:py-14">
         <div className="mb-8 flex justify-center">
           <Image
-            src="/images/logoQB.png"
+            src="/images/QuasarBET.png"
             alt="QuasarBet"
-            width={360}
-            height={90}
+            width={295}
+            height={74}
             priority
-            className="w-full max-w-[360px] h-auto"
+            className="w-full max-w-[295px] h-auto"
           />
-        </div>
-
-        <div className="text-center">
-          <h1 className="text-2xl font-bold uppercase tracking-widest text-white md:text-3xl">
-            Termos, Regulamento e Regras
-          </h1>
-          <p className="link-focus mt-3 text-sm leading-relaxed md:text-base">
-            Leia com atencao as condicoes que orientam o uso da plataforma
-            Quasar Bet.
-          </p>
-        </div>
+        </div>  
 
         <section className="mt-10 space-y-10 text-sm leading-relaxed text-slate-300 md:text-base">
           <article className="space-y-4">
             <h2 className="mb-4 flex items-center justify-center gap-2 text-center text-lg font-bold uppercase tracking-wide text-white">
-              <ShieldCheck className="h-5 w-5" />
+              <ShieldCheck className="h-5 w-5" style={{ color: "var(--color-primary)" }} />
               Termos de Uso
             </h2>
             <div className="space-y-4 text-center">
@@ -63,7 +53,7 @@ export default function Terms() {
 
           <article className="space-y-4">
             <h2 className="mb-4 flex items-center justify-center gap-2 text-center text-lg font-bold uppercase tracking-wide text-white">
-              <Scale className="h-5 w-5" />
+              <Scale className="h-5 w-5" style={{ color: "var(--color-primary)" }} />
               Regulamento da Plataforma
             </h2>
             <div className="space-y-4 text-center">
@@ -92,36 +82,36 @@ export default function Terms() {
 
           <article className="space-y-4">
             <h2 className="mb-4 flex items-center justify-center gap-2 text-center text-lg font-bold uppercase tracking-wide text-white">
-              <ListChecks className="h-5 w-5" />
+              <ListChecks className="h-5 w-5" style={{ color: "var(--color-primary)" }} />
               Regras Essenciais
             </h2>
             <ul className="mx-auto max-w-3xl space-y-3">
               <li className="flex items-start gap-3">
-                <CircleCheck className="mt-0.5 h-4 w-4 shrink-0 text-slate-300" />
+                <CircleCheck className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--color-primary)" }} />
                 <span>Manter seus dados cadastrais corretos e sempre atualizados.</span>
               </li>
               <li className="flex items-start gap-3">
-                <CircleCheck className="mt-0.5 h-4 w-4 shrink-0 text-slate-300" />
+                <CircleCheck className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--color-primary)" }} />
                 <span>Nao compartilhar conta, senha, codigo de acesso ou qualquer credencial.</span>
               </li>
               <li className="flex items-start gap-3">
-                <CircleCheck className="mt-0.5 h-4 w-4 shrink-0 text-slate-300" />
+                <CircleCheck className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--color-primary)" }} />
                 <span>Utilizar apenas metodos de pagamento de sua propria titularidade.</span>
               </li>
               <li className="flex items-start gap-3">
-                <CircleCheck className="mt-0.5 h-4 w-4 shrink-0 text-slate-300" />
+                <CircleCheck className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--color-primary)" }} />
                 <span>Respeitar os limites da plataforma e praticar jogo responsavel.</span>
               </li>
               <li className="flex items-start gap-3">
-                <CircleCheck className="mt-0.5 h-4 w-4 shrink-0 text-slate-300" />
+                <CircleCheck className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--color-primary)" }} />
                 <span>Nao utilizar automacoes, scripts ou mecanismos que interfiram nas operacoes.</span>
               </li>
               <li className="flex items-start gap-3">
-                <CircleCheck className="mt-0.5 h-4 w-4 shrink-0 text-slate-300" />
+                <CircleCheck className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--color-primary)" }} />
                 <span>Aceitar que verificacoes adicionais podem ser solicitadas por seguranca.</span>
               </li>
               <li className="flex items-start gap-3">
-                <CircleCheck className="mt-0.5 h-4 w-4 shrink-0 text-slate-300" />
+                <CircleCheck className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--color-primary)" }} />
                 <span>Consultar periodicamente esta pagina para acompanhar eventuais atualizacoes.</span>
               </li>
             </ul>
@@ -137,22 +127,29 @@ export default function Terms() {
           </article>
         </section>
 
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+        {/* Botões */}
+        <div className="mt-8 w-full flex flex-col gap-4">
+
+          {/* Login */}
           <Link
             href="/login"
-            className="btn-primary flex w-full items-center justify-center gap-2 rounded-md py-3 font-bold uppercase tracking-widest text-white"
+            className="btn-primary w-full text-white font-bold py-3 rounded-md uppercase tracking-widest flex items-center justify-center gap-2"
           >
-            <LogIn className="h-5 w-5" />
+            <LogIn className="w-5 h-5" style={{ color: "var(--color-primary)" }} />
             ENTRAR
           </Link>
+
+          {/* Cadastro */}
           <Link
             href="/register"
-            className="btn-secondary flex w-full items-center justify-center gap-2 rounded-md py-3 font-bold uppercase tracking-widest text-white"
+            className="w-full bg-transparent text-white font-bold py-3 rounded-md uppercase tracking-widest flex items-center justify-center gap-2 border border-[color:var(--color-primary)] hover:bg-[color:var(--color-primary)]/10 transition-colors active:scale-95 active:bg-[color:var(--color-primary)]/20"
           >
-            <UserPlus className="h-5 w-5" />
+            <UserPlus className="w-5 h-5" style={{ color: "var(--color-primary)" }} />
             CADASTRE-SE
           </Link>
+
         </div>
+
       </main>
     </div>
   );

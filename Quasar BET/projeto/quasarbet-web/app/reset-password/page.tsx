@@ -10,12 +10,12 @@ export default function ResetPassword() {
         {/* Logo */}
         <div className="mb-8">
           <Image
-            src="/images/logoQB.png"
+            src="/images/QuasarBET.png"
             alt="QuasarBet"
-            width={360}
-            height={90}
+            width={295}
+            height={74}
             priority
-            className="w-full max-w-[360px] h-auto"
+            className="w-full max-w-[295px] h-auto"
           />
         </div>
 
@@ -83,7 +83,7 @@ export default function ResetPassword() {
           {/* Voltar ao login */}
           <div className="text-center mt-1">
             <Link href="/login" className="link-focus text-sm flex items-center justify-center gap-1">
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
               Voltar ao login
             </Link>
           </div>

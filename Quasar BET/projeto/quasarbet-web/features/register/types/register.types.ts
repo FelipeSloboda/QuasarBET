@@ -6,12 +6,10 @@ export interface RegisterPayload {
   phone: string;
   password: string;
   firstName: string;
-  lastName: string;
   birthDate: string;
 }
 
 export interface RegisterFormValues extends RegisterPayload {
-  confirmPassword: string;
   referralCode: string;
   acceptTerms: boolean;
 }

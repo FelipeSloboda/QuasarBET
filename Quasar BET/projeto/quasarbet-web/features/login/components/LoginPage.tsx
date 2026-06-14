@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { LogIn, Mail, Lock } from "lucide-react";
+import { LogIn, Mail, Lock, User, UserPlus, KeyRound } from "lucide-react";
 
 export default function LoginPage() {
   return (
@@ -8,23 +8,23 @@ export default function LoginPage() {
       <div className="w-full max-w-sm px-8 py-10 flex flex-col items-center">
         <div className="mb-8">
           <Image
-            src="/images/logoQB.png"
+            src="/images/QuasarBET.png"
             alt="QuasarBet"
-            width={360}
-            height={90}
+            width={295}
+            height={74}
             priority
-            className="w-full max-w-[360px] h-auto"
+            className="w-full max-w-[295px] h-auto"
           />
         </div>
 
         <div className="w-full text-center mb-6 flex flex-col gap-2">
-          <h1 className="text-white text-xl font-bold uppercase tracking-widest">BEM VINDO DE VOLTA</h1>
+          {/*<h1 className="text-white text-xl font-bold uppercase tracking-widest">BEM VINDO DE VOLTA</h1>*/}
           <p className="link-focus text-sm leading-relaxed">Acesse sua conta e continue lucrando.</p>
         </div>
 
         <form className="w-full flex flex-col gap-4">
           <div className="relative w-full">
-            <Mail className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
+            <User className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
             <input type="text" placeholder="E-mail ou CPF" className="input-base w-full rounded-md pl-10 pr-4 py-3" />
           </div>
 
@@ -50,18 +50,25 @@ export default function LoginPage() {
             ENTRAR
           </button>
 
-          <div className="text-center mt-1">
-            <Link href="/register" className="link-focus text-sm">
-              Novo por aqui? Cadastre-se
-            </Link>
+          {/* Divider */}
+          <div className="mt-12 mb-4 flex justify-center">
+            <div className="h-px w-50 bg-white/50" />
           </div>
 
-          <div className="text-center mt-1">
-            <Link href="/forgot-password" className="link-focus text-sm">
-              Esqueceu a senha?
+
+          <div className="w-full flex flex-col items-center gap-3 mt-4">
+            <Link href="/forgot-password" className="link-focus text-sm flex items-center gap-2 hover:text-white transition-colors">
+              <KeyRound className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
+              Esqueci minha senha
             </Link>
+
+            <Link href="/register" className="link-focus text-sm flex items-center gap-2 hover:text-white transition-colors">
+              <UserPlus className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
+              Cadastre-se
+            </Link>       
           </div>
-        </form>
+          
+        </form>        
       </div>
     </div>
   );

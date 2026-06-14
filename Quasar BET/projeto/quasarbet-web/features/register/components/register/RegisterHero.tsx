@@ -5,17 +5,16 @@ export default function RegisterHero() {
     <>
       <div className="mb-8">
         <Image
-          src="/images/logoQB.png"
+          src="/images/QuasarBET.png"
           alt="QuasarBet"
-          width={360}
-          height={90}
+          width={295}
+          height={74}
           priority
-          className="w-full max-w-[360px] h-auto"
+          className="w-full max-w-[295px] h-auto"
         />
       </div>
 
       <div className="w-full text-center mb-6 flex flex-col gap-2">
-        <h1 className="text-white text-xl font-bold uppercase tracking-widest">CRIE SUA CONTA</h1>
         <p className="link-focus text-sm leading-relaxed">Cadastre-se agora e comece a lucrar.</p>
       </div>
     </>

@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
-import { Calendar, CreditCard, Eye, EyeOff, Gift, Globe, Lock, Mail, Phone, User, UserPlus } from "lucide-react";
+import { Calendar, CreditCard, Eye, EyeOff, Gift, Globe, Lock, Mail, Phone, User, UserPlus} from "lucide-react";
 import BaseButton from "@/components/ui/BaseButton";
 import TextField from "@/components/form/TextField";
 import type { ValidationState } from "@/components/form/TextField";
@@ -22,7 +22,6 @@ import {
 
 const initialValues: RegisterFormValues = {
   firstName: "",
-  lastName: "",
   cpf: "",
   email: "",
   countryCode: "55",
@@ -30,14 +29,12 @@ const initialValues: RegisterFormValues = {
   phone: "",
   birthDate: "",
   password: "",
-  confirmPassword: "",
   referralCode: "",
   acceptTerms: false,
 };
 
 const textFields: RegisterTextFieldName[] = [
   "firstName",
-  "lastName",
   "cpf",
   "email",
   "countryCode",
@@ -45,13 +42,11 @@ const textFields: RegisterTextFieldName[] = [
   "phone",
   "birthDate",
   "password",
-  "confirmPassword",
   "referralCode",
 ];
 
 const requiredTextFields: RegisterTextFieldName[] = [
   "firstName",
-  "lastName",
   "cpf",
   "email",
   "countryCode",
@@ -59,12 +54,10 @@ const requiredTextFields: RegisterTextFieldName[] = [
   "phone",
   "birthDate",
   "password",
-  "confirmPassword",
 ];
 
 const emptyTouchedState: Record<RegisterTextFieldName, boolean> = {
   firstName: false,
-  lastName: false,
   cpf: false,
   email: false,
   countryCode: false,
@@ -72,7 +65,6 @@ const emptyTouchedState: Record<RegisterTextFieldName, boolean> = {
   phone: false,
   birthDate: false,
   password: false,
-  confirmPassword: false,
   referralCode: false,
 };
 
@@ -83,14 +75,12 @@ export default function RegisterForm() {
   const [focusedField, setFocusedField] = useState<RegisterTextFieldName | null>(null);
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formMessage, setFormMessage] = useState<string | null>(null);
 
   const fieldErrors = useMemo(() => {
     const errors: Record<RegisterTextFieldName, string | null> = {
       firstName: null,
-      lastName: null,
       cpf: null,
       email: null,
       countryCode: null,
@@ -98,7 +88,6 @@ export default function RegisterForm() {
       phone: null,
       birthDate: null,
       password: null,
-      confirmPassword: null,
       referralCode: null,
     };
 
@@ -114,8 +103,7 @@ export default function RegisterForm() {
   const formatFieldValue = (field: RegisterTextFieldName, inputValue: string): string => {
     switch (field) {
       case "firstName":
-      case "lastName":
-        return formatNamePart(inputValue).slice(0, field === "firstName" ? 50 : 150);
+        return formatNamePart(inputValue).slice(0, 100);
       case "cpf":
         return formatCpf(inputValue);
       case "email":
@@ -129,7 +117,6 @@ export default function RegisterForm() {
       case "birthDate":
         return formatBirthDate(inputValue);
       case "password":
-      case "confirmPassword":
         return inputValue.slice(0, 64);
       case "referralCode":
         return formatReferralCode(inputValue);
@@ -220,9 +207,9 @@ export default function RegisterForm() {
         name="firstName"
         type="text"
         value={values.firstName}
-        placeholder="Nome"
-        autoComplete="given-name"
-        maxLength={50}
+        placeholder="Nome completo"
+        autoComplete="name"
+        maxLength={100}
         onValueChange={(value) => handleFieldChange("firstName", value)}
         onFocus={() => setFocusedField("firstName")}
         onBlur={() => handleFieldBlur("firstName")}
@@ -230,23 +217,6 @@ export default function RegisterForm() {
         isFocused={focusedField === "firstName"}
         isEmpty={getFieldIsEmpty("firstName")}
         errorMessage={getFieldErrorMessage("firstName")}
-      />
-
-      <TextField
-        icon={User}
-        name="lastName"
-        type="text"
-        value={values.lastName}
-        placeholder="Sobrenome"
-        autoComplete="family-name"
-        maxLength={150}
-        onValueChange={(value) => handleFieldChange("lastName", value)}
-        onFocus={() => setFocusedField("lastName")}
-        onBlur={() => handleFieldBlur("lastName")}
-        validationState={getFieldValidationState("lastName")}
-        isFocused={focusedField === "lastName"}
-        isEmpty={getFieldIsEmpty("lastName")}
-        errorMessage={getFieldErrorMessage("lastName")}
       />
 
       <TextField
@@ -386,33 +356,6 @@ export default function RegisterForm() {
       />
 
       <TextField
-        icon={Lock}
-        name="confirmPassword"
-        type={showConfirmPassword ? "text" : "password"}
-        value={values.confirmPassword}
-        placeholder="Repita a senha"
-        autoComplete="new-password"
-        maxLength={64}
-        onValueChange={(value) => handleFieldChange("confirmPassword", value)}
-        onFocus={() => setFocusedField("confirmPassword")}
-        onBlur={() => handleFieldBlur("confirmPassword")}
-        validationState={getFieldValidationState("confirmPassword")}
-        isFocused={focusedField === "confirmPassword"}
-        isEmpty={getFieldIsEmpty("confirmPassword")}
-        errorMessage={getFieldErrorMessage("confirmPassword")}
-        rightSlot={(
-          <button
-            type="button"
-            aria-label={showConfirmPassword ? "Ocultar repetição de senha" : "Exibir repetição de senha"}
-            onClick={() => setShowConfirmPassword((previous) => !previous)}
-            className="icon-muted hover:text-white transition"
-          >
-            {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-          </button>
-        )}
-      />
-
-      <TextField
         icon={Gift}
         name="referralCode"
         type="text"
@@ -452,11 +395,12 @@ export default function RegisterForm() {
         {isSubmitting ? "PROCESSANDO..." : "Cadastrar"}
       </BaseButton>
 
-      <div className="text-center mt-1">
-        <Link href="/login" className="link-focus text-sm">
+
+
+        <Link href="/login" className="link-focus w-full text-center text-sm flex items-center justify-center gap-1 py-2 hover:text-blue-300 transition">
+          <User className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
           Já tem uma conta? Faça login
         </Link>
-      </div>
     </form>
   );
 }
