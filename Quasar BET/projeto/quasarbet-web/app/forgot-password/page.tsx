@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { KeyRound, ArrowLeft, Mail } from "lucide-react";
+import { KeyRound, ArrowLeft, User } from "lucide-react";
 
 export default function ForgotPassword() {
   return (
@@ -10,12 +10,12 @@ export default function ForgotPassword() {
         {/* Logo */}
         <div className="mb-8">
           <Image
-            src="/images/logo.png"
+            src="/images/_QuasarBET.png"
             alt="QuasarBet"
-            width={360}
-            height={90}
+            width={295}
+            height={74}
             priority
-            className="w-full max-w-[360px] h-auto"
+            className="w-full max-w-[295px] h-auto"
           />
         </div>
 
@@ -35,7 +35,7 @@ export default function ForgotPassword() {
 
           {/* Campo E-mail ou CPF */}
           <div className="relative w-full">
-            <Mail className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
+            <User className="icon-muted absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 pointer-events-none" />
             <input
               type="text"
               placeholder="E-mail ou CPF"
@@ -55,7 +55,7 @@ export default function ForgotPassword() {
           {/* Voltar ao login */}
           <div className="text-center mt-1">
             <Link href="/login" className="link-focus text-sm flex items-center justify-center gap-1">
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
               Voltar ao login
             </Link>
           </div>

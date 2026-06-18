@@ -45,12 +45,12 @@ export default function VerifyEmail() {
       <div className="w-full max-w-md px-8 py-10 flex flex-col items-center gap-6">
         <div className="mb-2">
           <Image
-            src="/images/logo.png"
+            src="/images/_QuasarBET.png"
             alt="QuasarBet"
-            width={360}
-            height={90}
+            width={295}
+            height={74}
             priority
-            className="w-full max-w-[280px] h-auto"
+            className="w-full max-w-[295px] h-auto"
           />
         </div>
 
@@ -66,7 +66,7 @@ export default function VerifyEmail() {
         <div className="w-full space-y-4">
           <div className="rounded-lg border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-5 backdrop-blur-md">
             <div className="flex items-center justify-center gap-3">
-              <MailCheck className="w-6 h-6 text-blue-400 shrink-0" />
+              <MailCheck className="w-6 h-6 shrink-0" style={{ color: "var(--color-primary)" }} />
               <div className="text-center">
                 <p className="text-xs uppercase tracking-wider text-slate-400 font-semibold">
                   E-mail enviado
@@ -81,7 +81,7 @@ export default function VerifyEmail() {
           <div className="rounded-lg border border-white/10 bg-gradient-to-br from-white/5 to-white/[0.02] p-5 backdrop-blur-md">
             <div className="flex flex-col items-center gap-3">
               <div className="flex items-center gap-2 text-slate-400">
-                <Clock3 className="w-4 h-4" />
+                <Clock3 className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
                 <span className="text-xs uppercase tracking-wider font-semibold">
                   Proxima tentativa em
                 </span>
@@ -110,7 +110,7 @@ export default function VerifyEmail() {
             href="/login"
             className="link-focus w-full text-center text-sm flex items-center justify-center gap-1 py-2 hover:text-blue-300 transition"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
             Voltar ao login
           </Link>
         </div>

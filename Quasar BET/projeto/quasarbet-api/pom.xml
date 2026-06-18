@@ -49,6 +49,18 @@
 			<scope>test</scope>
 		</dependency>	
 
+		<!-- SPRING BOOT VALID -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<!-- SPRING BOOT BCRYPT -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
 		<!-- SWAGGER -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
@@ -66,6 +78,19 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- SPRING BOOT MAIL -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<!-- THYMELEAF (TEMPLATES DE E-MAIL) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

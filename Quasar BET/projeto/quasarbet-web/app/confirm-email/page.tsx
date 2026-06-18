@@ -11,25 +11,25 @@ import {
 } from "lucide-react";
 
 export default function ConfirmEmail() {
-  const isSuccess = false; /* STATUS DO TOKEN */
+  const isSuccess = true; /* STATUS DO TOKEN */
 
   return (
     <div className="bg-page min-h-screen flex items-center justify-center">
       <div className="w-full max-w-md px-8 py-10 flex flex-col items-center gap-6">
         <div className="mb-2">
           <Image
-            src="/images/logo.png"
+            src="/images/_QuasarBET.png"
             alt="QuasarBet"
-            width={360}
-            height={90}
+            width={295}
+            height={74}
             priority
-            className="w-full max-w-[280px] h-auto"
+            className="w-full max-w-[295px] h-auto"
           />
         </div>
 
         <div className="flex justify-center">
           {isSuccess ? (
-            <CircleCheckBig className="w-16 h-16 text-emerald-400" />
+            <CircleCheckBig className="w-16 h-16" style={{ color: "var(--color-primary)" }} />
           ) : (
             <CircleAlert className="w-16 h-16 text-amber-400" />
           )}
@@ -43,31 +43,31 @@ export default function ConfirmEmail() {
 
         <div className="w-full space-y-4">
           {isSuccess ? (
-            <div className="rounded-lg border border-emerald-500/20 bg-gradient-to-br from-emerald-500/5 to-emerald-500/0 p-5 backdrop-blur-md">
+            <div className="rounded-lg border border-[color:var(--color-primary)]/20 bg-[var(--color-bg-secondary)] p-5 backdrop-blur-md">
               <div className="flex items-center justify-center gap-3 text-center">
-                <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" style={{ color: "var(--color-primary)" }} />
                 <div className="text-center">
-                  <p className="text-xs uppercase tracking-wider text-emerald-300 font-semibold">
+                  <p className="text-xs uppercase tracking-wider font-semibold" style={{ color: "var(--color-primary)" }}>
                     E-mail verificado
                   </p>
                   <p className="mt-2 text-sm text-white">
-                    Agora você ja pode acessar sua conta e começar a apostar.
+                    Agora você já pode acessar sua conta e começar a apostar.
                   </p>
                 </div>
               </div>
             </div>
           ) : (
-            <div className="rounded-lg border border-amber-500/20 bg-gradient-to-br from-amber-500/5 to-amber-500/0 p-5 backdrop-blur-md">
+            <div className="rounded-lg border border-amber-500/20 bg-[var(--color-bg-secondary)] p-5 backdrop-blur-md">
               <div className="flex items-center justify-center gap-3 text-center">
                 <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
                 <div className="text-center">
                   <p className="text-xs uppercase tracking-wider text-amber-300 font-semibold">
-                    token expirado
+                    Token expirado
                   </p>
                   <p className="mt-2 text-sm text-white">
                     O token de validacao expirou. Solicite um novo e-mail de confirmacao para continuar.
                   </p>
-                </div>
+                </div>  
               </div>
             </div>
           )}
@@ -95,7 +95,7 @@ export default function ConfirmEmail() {
             href="/login"
             className="link-focus w-full text-center text-sm flex items-center justify-center gap-1 py-2 hover:text-blue-300 transition"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4" style={{ color: "var(--color-primary)" }} />
             Voltar ao login
           </Link>
           )}

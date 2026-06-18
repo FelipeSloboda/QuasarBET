@@ -40,8 +40,6 @@ services:
     image: node:24.15.0-bookworm
     container_name: quasarbet-web
     working_dir: /app
-    env_file:
-      - .env
     volumes:
       - ${DIR_WEB}:/app
     command: sh -c "npm install && npm run dev"
