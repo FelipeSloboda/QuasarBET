@@ -7,6 +7,7 @@ import com.quasarbet.api.exception.ResourceConflictException;
 import com.quasarbet.api.exception.ResourceNotFoundException;
 import com.quasarbet.api.repository.UserRepository;
 //import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -19,13 +20,19 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
+
+    @Value("${app.frontend.base-url}")
+    private String frontendBaseUrl;
 
     public UserService(
         UserRepository userRepository,
-        PasswordEncoder passwordEncoder
+        PasswordEncoder passwordEncoder,
+        EmailService emailService
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
     }
 
     /**
@@ -62,7 +69,10 @@ public class UserService {
         user.setReferralCode(referralCode);
 
         User savedUser = userRepository.save(user);
-        
+
+        String confirmationUrl = frontendBaseUrl + "/confirm-email?token=123";
+        emailService.sendConfirmEmail(savedUser.getEmail(), savedUser.getFirstName(), confirmationUrl);
+
         return new UserResponseDTO(
             savedUser.getId(),
             savedUser.getFirstName() + " " + savedUser.getLastName(),

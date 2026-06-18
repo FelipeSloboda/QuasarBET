@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Confirme seu e-mail — QuasarBET</title>
+</head>
+<body style="margin:0; padding:0; background-color:#07070f; font-family:'Segoe UI', Arial, sans-serif;">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#07070f; min-height:100vh;">
+        <tr>
+            <td align="center" style="padding:48px 16px 32px;">
+
+                <table cellpadding="0" cellspacing="0" style="width:100%; max-width:520px;">
+
+                    <!-- Card principal -->
+                    <tr>
+                        <td style="background-color:#0e0e1c; border-radius:20px; border:1px solid #1a1a30; overflow:hidden;">
+
+                            <!-- Faixa verde topo -->
+                            <table width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td style="background:linear-gradient(90deg,#2ab84a,#3ddc5a); height:8px; font-size:0; line-height:0;">&nbsp;</td>
+                                </tr>
+                            </table>
+
+                            <!-- Conteúdo do card -->
+                            <table width="100%" cellpadding="0" cellspacing="0" style="padding:44px 40px 40px;">
+                                <tr>
+                                    <td>
+
+                                        <!-- Logo -->
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td align="center" style="padding-bottom:28px;">
+                                                    <img src="cid:logo" alt="QuasarBET" style="max-height:120px; display:block;">
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Saudação -->
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td align="center" style="padding-bottom:8px;">
+                                                    <p style="margin:0; font-size:13px; color:#6b6b8a; letter-spacing:1.5px; text-transform:uppercase; font-weight:600;">
+                                                        Bem-vindo
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" style="padding-bottom:20px;">
+                                                    <h1 style="margin:0; font-size:26px; font-weight:700; color:#ffffff; letter-spacing:-0.3px;">
+                                                        Olá, <span th:text="${firstName}" style="color:#3ddc5a;">Usuário</span>!
+                                                    </h1>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" style="padding-bottom:36px;">
+                                                    <p style="margin:0; font-size:15px; color:#7a7a9a; line-height:1.7; max-width:380px;">
+                                                        Sua conta foi criada com sucesso. Confirme seu e-mail para ativar sua conta e ter acesso completo à plataforma.
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Divisor -->
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="padding-bottom:36px;">
+                                                    <table width="100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="height:1px; background-color:#1a1a30; font-size:0; line-height:0;">&nbsp;</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Botão CTA -->
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td align="center" style="padding-bottom:24px;">
+                                                    <table cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="background:linear-gradient(135deg,#2ab84a,#3ddc5a); border-radius:12px; box-shadow:0 4px 20px rgba(61,220,90,0.25);">
+                                                                <a th:href="${confirmationUrl}"
+                                                                   style="display:inline-block; padding:16px 56px; color:#07070f; font-weight:700; font-size:15px; text-decoration:none; letter-spacing:0.8px; font-family:'Segoe UI',Arial,sans-serif;">
+                                                                    CONFIRMAR E-MAIL
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Validade do link -->
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td align="center" style="padding-bottom:28px;">
+                                                    <p style="margin:0; font-size:12px; color:#44445a;">
+                                                        Este link expira em breve
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Divisor -->
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="padding-bottom:24px;">
+                                                    <table width="100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="height:1px; background-color:#1a1a30; font-size:0; line-height:0;">&nbsp;</td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Link alternativo -->
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td align="center" style="padding-bottom:6px;">
+                                                    <p style="margin:0; font-size:12px; color:#44445a;">
+                                                        Botão não funcionou? Copie o link abaixo:
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="center" style="padding:10px 16px; background-color:#0a0a18; border-radius:8px; border:1px solid #1a1a30;">
+                                                    <a th:href="${confirmationUrl}" th:text="${confirmationUrl}"
+                                                       style="color:#3ddc5a; font-size:11px; word-break:break-all; text-decoration:none; font-family:monospace;">
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                        <!-- Aviso de segurança -->
+                                        <table width="100%" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                                <td style="padding-top:24px;">
+                                                    <table width="100%" cellpadding="0" cellspacing="0">
+                                                        <tr>
+                                                            <td style="background-color:#0a0a18; border-radius:10px; border:1px solid #1a1a30; padding:14px 18px;">
+                                                                <p style="margin:0; font-size:12px; color:#44445a; line-height:1.7; text-align:center;">
+                                                                    &#128274;&nbsp; Se você não criou esta conta, ignore este e-mail com segurança. Nenhuma ação será necessária.
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center" style="padding-top:28px; padding-bottom:16px;">
+                            <p style="margin:0 0 6px; font-size:11px; color:#2e2e46;">
+                                &copy; 2026 QuasarBET. Todos os direitos reservados.
+                            </p>
+                            <p style="margin:0; font-size:11px; color:#2e2e46;">
+                                Este é um e-mail automático, não responda a esta mensagem.
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
