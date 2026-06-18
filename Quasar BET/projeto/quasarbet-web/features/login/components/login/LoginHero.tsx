@@ -5,7 +5,7 @@ export default function LoginHero() {
     <>
       <div className="mb-8">
         <Image
-          src="/images/QuasarBET.png"
+          src="/images/_QuasarBET.png"
           alt="QuasarBet"
           width={295}
           height={74}

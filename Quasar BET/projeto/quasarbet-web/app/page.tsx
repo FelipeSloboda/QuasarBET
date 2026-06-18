@@ -12,7 +12,7 @@ export default function Home() {
         {/* Logo */}
         <div className="mb-20">
           <Image
-            src="/images/QuasarBET.png"
+            src="/images/_QuasarBET.png"
             alt="QuasarBet"
             width={295}
             height={74}
