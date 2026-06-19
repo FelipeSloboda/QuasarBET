@@ -26,10 +26,11 @@ public class EmailService {
     }
 
     @Async
-    public void sendConfirmEmail(String toEmail, String firstName, String confirmationUrl) {
+    public void sendConfirmEmail(String toEmail, String firstName, String confirmationUrl, int expirationMinutes) {
         Context context = new Context();
         context.setVariable("firstName", firstName);
         context.setVariable("confirmationUrl", confirmationUrl);
+        context.setVariable("expirationMinutes", expirationMinutes);
 
         send(toEmail, "Bem-vindo à QuasarBET!", "email/confirm-email", context);
     }
