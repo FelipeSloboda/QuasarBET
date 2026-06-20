@@ -2,18 +2,26 @@ package com.quasarbet.api.service;
 
 import com.quasarbet.api.entity.TokenType;
 import com.quasarbet.api.entity.User;
+import com.quasarbet.api.entity.UserStatus;
 import com.quasarbet.api.entity.UserToken;
+import com.quasarbet.api.exception.ResourceConflictException;
+import com.quasarbet.api.exception.ResourceNotFoundException;
+import com.quasarbet.api.exception.TokenExpiredException;
+import com.quasarbet.api.repository.UserRepository;
 import com.quasarbet.api.repository.UserTokenRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class UserTokenService {
 
     private final UserTokenRepository userTokenRepository;
+    private final UserRepository userRepository;
     private final EmailService emailService;
     private final SecureRandom secureRandom = new SecureRandom();
 
@@ -26,8 +34,11 @@ public class UserTokenService {
     @Value("${api.token.verify-email-session.minutes}")
     private int verifyEmailSessionExpirationMinutes;
 
-    public UserTokenService(UserTokenRepository userTokenRepository, EmailService emailService) {
+    public UserTokenService(UserTokenRepository userTokenRepository,
+                            UserRepository userRepository,
+                            EmailService emailService) {
         this.userTokenRepository = userTokenRepository;
+        this.userRepository = userRepository;
         this.emailService = emailService;
     }
 
@@ -56,6 +67,72 @@ public class UserTokenService {
         userTokenRepository.save(userToken);
 
         return token;
+    }
+
+    @Transactional
+    public void resendEmailVerification(String sessionToken) {
+        UserToken session = userTokenRepository
+                .findByTokenAndTokenTypeAndUsedAtIsNull(sessionToken, TokenType.VERIFY_EMAIL_SESSION)
+                .orElseThrow(() -> new ResourceNotFoundException("Token de sessão inválido"));
+
+        if (session.isExpired()) {
+            throw new TokenExpiredException("Sessão expirada.");
+        }
+
+        User user = session.getUser();
+
+        if (Boolean.TRUE.equals(user.getEmailVerified())) {
+            throw new ResourceConflictException("emailVerified", "ALREADY_VERIFIED", "E-mail já foi verificado");
+        }
+
+        UserToken emailConfirmation = userTokenRepository
+                .findByUserAndTokenTypeAndUsedAtIsNull(user, TokenType.EMAIL_CONFIRMATION)
+                .stream()
+                .filter(t -> !t.isExpired())
+                .findFirst()
+                .orElseThrow(() -> new TokenExpiredException("Token de confirmação expirado."));
+
+        String confirmationUrl = frontendBaseUrl + "/confirm-email?token=" + emailConfirmation.getToken();
+        emailService.sendConfirmEmail(user.getEmail(), user.getFirstName(), confirmationUrl, emailConfirmExpirationMinutes);
+
+    }
+
+    @Transactional
+    public void confirmEmail(String token) {
+        UserToken userToken = userTokenRepository
+                .findByTokenAndTokenTypeAndUsedAtIsNull(token, TokenType.EMAIL_CONFIRMATION)
+                .orElseThrow(() -> new ResourceNotFoundException("Token de confirmação inválido"));
+
+        if (userToken.isExpired()) {
+            throw new TokenExpiredException("Token de confirmação expirado. Solicite o reenvio do e-mail.");
+        }
+
+        User user = userToken.getUser();
+
+        if (Boolean.TRUE.equals(user.getEmailVerified())) {
+            return;
+        }
+
+        user.setEmailVerified(true);
+        user.setStatus(UserStatus.ACTIVE);
+        userRepository.save(user);
+
+        markAsUsed(userToken);
+        revokeActiveTokens(user, TokenType.VERIFY_EMAIL_SESSION);
+    }
+
+    private void revokeActiveTokens(User user, TokenType tokenType) {
+        List<UserToken> activeTokens = userTokenRepository
+                .findByUserAndTokenTypeAndUsedAtIsNull(user, tokenType);
+
+        LocalDateTime now = LocalDateTime.now();
+        activeTokens.forEach(t -> t.setUsedAt(now));
+        userTokenRepository.saveAll(activeTokens);
+    }
+
+    private void markAsUsed(UserToken userToken) {
+        userToken.setUsedAt(LocalDateTime.now());
+        userTokenRepository.save(userToken);
     }
 
     private String generateSecureToken() {

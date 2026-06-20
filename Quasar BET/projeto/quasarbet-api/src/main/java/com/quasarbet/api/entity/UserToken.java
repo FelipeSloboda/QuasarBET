@@ -77,11 +77,19 @@ public class UserToken {
         this.expiresAt = expiresAt; 
     }
 
-    public LocalDateTime getUsedAt() { 
-        return usedAt; 
+    public LocalDateTime getUsedAt() {
+        return usedAt;
     }
 
-    public void setUsedAt(LocalDateTime usedAt) { 
-        this.usedAt = usedAt; 
+    public void setUsedAt(LocalDateTime usedAt) {
+        this.usedAt = usedAt;
+    }
+
+    public boolean isExpired() {
+        return LocalDateTime.now().isAfter(this.expiresAt);
+    }
+
+    public boolean isUsed() {
+        return this.usedAt != null;
     }
 }
