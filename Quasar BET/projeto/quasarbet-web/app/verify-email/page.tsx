@@ -1,20 +1,36 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 import { MailCheck, RotateCw, Clock3, ArrowLeft } from "lucide-react";
 
+interface VerifyEmailData {
+  id: number;
+  email: string;
+  password: string;
+  token: string;
+}
+
 export default function VerifyEmail() {
-  const searchParams = useSearchParams();
-  const email = searchParams.get("email") || "seuemail@exemplo.com";
+  const router = useRouter();
   const hydrated = useRef(false);
   const [timeLeft, setTimeLeft] = useState(60);
+  const [data, setData] = useState<VerifyEmailData | null>(null);
 
   useLayoutEffect(() => {
     hydrated.current = true;
   }, []);
+
+  useEffect(() => {
+    const raw = sessionStorage.getItem("verifyEmail");
+    if (raw) {
+      setData(JSON.parse(raw) as VerifyEmailData);
+    } else {
+      router.replace("/"); //RETORNA PARA PAGINA HOME
+    }
+  }, [router]);
 
   useEffect(() => {
     if (!hydrated.current || timeLeft === 0) {
@@ -72,7 +88,7 @@ export default function VerifyEmail() {
                   E-mail enviado
                 </p>
                 <p className="mt-2 text-sm text-white break-all font-mono">
-                  {email}
+                  {data?.email ?? "seuemail@exemplo.com"}
                 </p>
               </div>
             </div>

@@ -1,3 +1,11 @@
+export interface UserRegisterResponse {
+  id: number;
+  name: string;
+  email: string;
+  createdAt: string;
+  verifyEmailToken: string;
+}
+
 export interface RegisterPayload {
   firstName: string;
   lastName: string;
