@@ -1,10 +1,10 @@
-import { isValidCpfLength, isValidEmail } from "@/utils/validators";
+import { isValidEmail } from "@/utils/validators";
 import type { LoginPayload } from "@/features/login/types/login.types";
 import type { LoginFieldName, LoginFormValues } from "@/features/login/types/login.types";
 
 export function validateLoginPayload(payload: LoginPayload): string[] {
   const errors: string[] = [];
-  if (!payload.emailOrCpf.trim()) errors.push("E-mail ou CPF é obrigatório");
+  if (!payload.email.trim()) errors.push("E-mail é obrigatório");
   if (!payload.password.trim()) errors.push("Senha é obrigatória");
   if (payload.password.length < 6 || payload.password.length > 64) {
     errors.push("Senha deve conter entre 6 e 64 caracteres");
@@ -16,16 +16,10 @@ export function validateLoginField(field: LoginFieldName, values: LoginFormValue
   const value = values[field];
 
   switch (field) {
-    case "emailOrCpf": {
+    case "email": {
       const normalizedValue = value.replace(/\s+/g, "");
-      if (!normalizedValue) return "E-mail ou CPF é obrigatório";
-
-      if (normalizedValue.includes("@")) {
-        if (!isValidEmail(normalizedValue)) return "E-mail inválido";
-        return null;
-      }
-
-      if (!isValidCpfLength(normalizedValue)) return "CPF deve conter 11 dígitos";
+      if (!normalizedValue) return "E-mail é obrigatório";
+      if (!isValidEmail(normalizedValue)) return "E-mail inválido";
       return null;
     }
 

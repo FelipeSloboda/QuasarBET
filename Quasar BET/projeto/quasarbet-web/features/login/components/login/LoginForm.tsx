@@ -3,35 +3,27 @@
 import { useMemo, useState } from "react";
 import type { FormEvent } from "react";
 import Link from "next/link";
-import { CreditCard, Eye, EyeOff, KeyRound, Lock, LogIn, Mail, UserPlus } from "lucide-react";
+import { Eye, EyeOff, KeyRound, Lock, LogIn, Mail, UserPlus } from "lucide-react";
 import BaseButton from "@/components/ui/BaseButton";
 import TextField from "@/components/form/TextField";
 import type { ValidationState } from "@/components/form/TextField";
 import { validateLoginField } from "@/features/login/schemas/login.schemas";
 import type { LoginFieldName, LoginFormValues } from "@/features/login/types/login.types";
-import { formatCpf, normalizeEmail } from "@/utils/formatters";
+import { normalizeEmail } from "@/utils/formatters";
 
 const initialValues: LoginFormValues = {
-  emailOrCpf: "",
+  email: "",
   password: "",
 };
 
-const fields: LoginFieldName[] = ["emailOrCpf", "password"];
+const fields: LoginFieldName[] = ["email", "password"];
 
 const emptyTouchedState: Record<LoginFieldName, boolean> = {
-  emailOrCpf: false,
+  email: false,
   password: false,
 };
 
 const passwordLengthErrorMessage = "Senha deve conter entre 6 e 64 caracteres";
-
-function getIdentifierType(value: string): "email" | "cpf" {
-  if (/[A-Za-z@]/.test(value)) {
-    return "email";
-  }
-
-  return "cpf";
-}
 
 export default function LoginForm() {
   const [values, setValues] = useState<LoginFormValues>(initialValues);
@@ -42,7 +34,7 @@ export default function LoginForm() {
 
   const fieldErrors = useMemo(() => {
     const errors: Record<LoginFieldName, string | null> = {
-      emailOrCpf: null,
+      email: null,
       password: null,
     };
 
@@ -81,16 +73,9 @@ export default function LoginForm() {
   };
 
   const isFormValid = fields.every((field) => !getFieldIsEmpty(field) && !fieldErrors[field]);
-  const identifierType = getIdentifierType(values.emailOrCpf);
-  const IdentifierIcon = identifierType === "cpf" ? CreditCard : Mail;
 
   const handleFieldChange = (field: LoginFieldName, value: string) => {
-    const isIdentifierField = field === "emailOrCpf";
-    const formattedValue = isIdentifierField
-      ? getIdentifierType(value) === "cpf"
-        ? formatCpf(value)
-        : normalizeEmail(value)
-      : value;
+    const formattedValue = field === "email" ? normalizeEmail(value) : value;
 
     setValues((previousValues) => ({
       ...previousValues,
@@ -120,21 +105,21 @@ export default function LoginForm() {
   return (
     <form className="w-full flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
       <TextField
-        icon={IdentifierIcon}
-        name="emailOrCpf"
-        type="text"
-        value={values.emailOrCpf}
-        placeholder="E-mail ou CPF"
-        autoComplete="username"
-        inputMode={identifierType === "cpf" ? "numeric" : "email"}
+        icon={Mail}
+        name="email"
+        type="email"
+        value={values.email}
+        placeholder="E-mail"
+        autoComplete="email"
+        inputMode="email"
         maxLength={100}
-        onValueChange={(value) => handleFieldChange("emailOrCpf", value)}
-        onFocus={() => setFocusedField("emailOrCpf")}
-        onBlur={() => handleFieldBlur("emailOrCpf")}
-        validationState={getFieldValidationState("emailOrCpf")}
-        isFocused={focusedField === "emailOrCpf"}
-        isEmpty={getFieldIsEmpty("emailOrCpf")}
-        errorMessage={getFieldErrorMessage("emailOrCpf")}
+        onValueChange={(value) => handleFieldChange("email", value)}
+        onFocus={() => setFocusedField("email")}
+        onBlur={() => handleFieldBlur("email")}
+        validationState={getFieldValidationState("email")}
+        isFocused={focusedField === "email"}
+        isEmpty={getFieldIsEmpty("email")}
+        errorMessage={getFieldErrorMessage("email")}
       />
 
       <TextField
