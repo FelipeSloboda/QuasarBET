@@ -62,7 +62,7 @@ export default function ForgotPasswordForm() {
       <BaseButton
         type="submit"
         disabled={!isValid}
-        className={`w-full mt-2 ${!isValid ? "opacity-55 cursor-not-allowed" : ""}`}
+        className={`w-full mt-2 ${!isValid ? "opacity-55 cursor-not-allowed pointer-events-none" : ""}`}
       >
         <KeyRound className="w-5 h-5" />
         Esqueci minha senha

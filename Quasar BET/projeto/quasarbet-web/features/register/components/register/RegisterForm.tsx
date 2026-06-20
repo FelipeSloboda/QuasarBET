@@ -451,7 +451,7 @@ export default function RegisterForm() {
       <BaseButton
         type="submit"
         disabled={!isFormValid || isSubmitting}
-        className={`w-full mt-2 ${!isFormValid || isSubmitting ? "opacity-55 cursor-not-allowed" : ""}`}
+        className={`w-full mt-2 ${!isFormValid || isSubmitting ? "opacity-55 cursor-not-allowed pointer-events-none" : ""}`}
       >
         <UserPlus className="w-5 h-5" />
         {isSubmitting ? "ENVIANDO..." : "Cadastrar"}

@@ -152,7 +152,7 @@ export default function LoginForm() {
       <BaseButton
         type="submit"
         disabled={!isFormValid}
-        className={`w-full mt-2 ${!isFormValid ? "opacity-55 cursor-not-allowed" : ""}`}
+        className={`w-full mt-2 ${!isFormValid ? "opacity-55 cursor-not-allowed pointer-events-none" : ""}`}
       >
         <LogIn className="w-5 h-5" />
         Entrar
