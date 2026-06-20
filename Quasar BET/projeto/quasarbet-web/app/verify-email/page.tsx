@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { MailCheck, RotateCw, Clock3, ArrowLeft } from "lucide-react";
+import { resendEmailVerification } from "@/features/verify-email/services/verify-email.service";
 
 interface VerifyEmailData {
   id: number;
@@ -18,6 +19,8 @@ export default function VerifyEmail() {
   const hydrated = useRef(false);
   const [timeLeft, setTimeLeft] = useState(60);
   const [data, setData] = useState<VerifyEmailData | null>(null);
+  const [resendError, setResendError] = useState<string | null>(null);
+  const [resending, setResending] = useState(false);
 
   useLayoutEffect(() => {
     hydrated.current = true;
@@ -44,12 +47,22 @@ export default function VerifyEmail() {
     return () => window.clearTimeout(timer);
   }, [timeLeft]);
 
-  function handleResendEmail() {
-    if (timeLeft > 0) {
+  async function handleResendEmail() {
+    if (timeLeft > 0 || !data || resending) {
       return;
     }
 
-    setTimeLeft(60);
+    setResendError(null);
+    setResending(true);
+
+    try {
+      await resendEmailVerification(data.token);
+      setTimeLeft(60);
+    } catch {
+      setResendError("Não foi possível reenviar o e-mail. Tente novamente.");
+    } finally {
+      setResending(false);
+    }
   }
 
   const display = timeLeft;
