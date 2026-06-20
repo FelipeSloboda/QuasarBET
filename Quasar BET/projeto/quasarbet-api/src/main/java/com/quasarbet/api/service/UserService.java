@@ -53,12 +53,14 @@ public class UserService {
         User savedUser = userRepository.save(user);
 
         userTokenService.issueEmailConfirmation(savedUser);
+        String verifyEmailToken = userTokenService.issueVerifyEmailSession(savedUser);
 
         return new UserResponseDTO(
             savedUser.getId(),
             savedUser.getFirstName() + " " + savedUser.getLastName(),
             savedUser.getEmail(),
-            savedUser.getCreatedAt()
+            savedUser.getCreatedAt(),
+            verifyEmailToken
         );
     }
 

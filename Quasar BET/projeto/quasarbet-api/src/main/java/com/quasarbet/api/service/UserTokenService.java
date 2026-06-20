@@ -20,8 +20,11 @@ public class UserTokenService {
     @Value("${app.frontend.base-url}")
     private String frontendBaseUrl;
 
-    @Value("${api.token.email-confirm.minutes}")
+    @Value("${api.token.email-confirmation.minutes}")
     private int emailConfirmExpirationMinutes;
+
+    @Value("${api.token.verify-email-session.minutes}")
+    private int verifyEmailSessionExpirationMinutes;
 
     public UserTokenService(UserTokenRepository userTokenRepository, EmailService emailService) {
         this.userTokenRepository = userTokenRepository;
@@ -40,6 +43,19 @@ public class UserTokenService {
 
         String confirmationUrl = frontendBaseUrl + "/confirm-email?token=" + token;
         emailService.sendConfirmEmail(user.getEmail(), user.getFirstName(), confirmationUrl, emailConfirmExpirationMinutes);
+    }
+
+    public String issueVerifyEmailSession(User user) {
+        String token = generateSecureToken();
+
+        UserToken userToken = new UserToken();
+        userToken.setUser(user);
+        userToken.setToken(token);
+        userToken.setTokenType(TokenType.VERIFY_EMAIL_SESSION);
+        userToken.setExpiresAt(LocalDateTime.now().plusMinutes(verifyEmailSessionExpirationMinutes));
+        userTokenRepository.save(userToken);
+
+        return token;
     }
 
     private String generateSecureToken() {
