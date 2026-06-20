@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import type { FormEvent, KeyboardEvent } from "react";
 import Link from "next/link";
 import { Calendar, CreditCard, Eye, EyeOff, Gift, Globe, Lock, Mail, Phone, User, UserPlus} from "lucide-react";
@@ -9,7 +10,7 @@ import TextField from "@/components/form/TextField";
 import type { ValidationState } from "@/components/form/TextField";
 import RegisterTermsField from "@/features/register/components/register/RegisterTermsField";
 import { validateRegisterField, validateRegisterTerms } from "@/features/register/schemas/register.schemas";
-import type { RegisterFormValues, RegisterPayload, RegisterTextFieldName } from "@/features/register/types/register.types";
+import type { RegisterFormValues, RegisterPayload, RegisterTextFieldName, UserRegisterResponse } from "@/features/register/types/register.types";
 import { register } from "@/features/register/services/register.service";
 import type { ApiResponse } from "@/types/api";
 import {
@@ -71,6 +72,7 @@ const emptyTouchedState: Record<RegisterTextFieldName, boolean> = {
 };
 
 export default function RegisterForm() {
+  const router = useRouter();
   const [values, setValues] = useState<RegisterFormValues>(initialValues);
   const [touchedFields, setTouchedFields] = useState<Record<RegisterTextFieldName, boolean>>(emptyTouchedState);
   const [termsTouched, setTermsTouched] = useState(false);
@@ -228,7 +230,16 @@ export default function RegisterForm() {
       };
 
       const response = await register(payload);
-      setFormMessage(response.message ?? "Cadastro realizado com sucesso!");
+      const userData = response.data as UserRegisterResponse;
+
+      sessionStorage.setItem("verifyEmail", JSON.stringify({
+        id: userData.id,
+        email: userData.email,
+        password: values.password,
+        token: userData.verifyEmailToken,
+      }));
+
+      router.push("/verify-email");
     } catch (error) {
       const apiError = error as ApiResponse<unknown>;
       if (apiError?.message) {

@@ -4,40 +4,31 @@ import com.quasarbet.api.dto.user.request.CreateUserDTO;
 import com.quasarbet.api.dto.user.response.UserResponseDTO;
 import com.quasarbet.api.entity.User;
 import com.quasarbet.api.exception.ResourceConflictException;
-import com.quasarbet.api.exception.ResourceNotFoundException;
 import com.quasarbet.api.repository.UserRepository;
-//import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-//import java.util.List;
-//import java.util.stream.Collectors;
-
-import java.util.UUID;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final EmailService emailService;
-
-    @Value("${app.frontend.base-url}")
-    private String frontendBaseUrl;
+    private final ReferralCodeGenerator referralCodeGenerator;
+    private final UserTokenService userTokenService;
 
     public UserService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
-        EmailService emailService
+        ReferralCodeGenerator referralCodeGenerator,
+        UserTokenService userTokenService
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-        this.emailService = emailService;
+        this.referralCodeGenerator = referralCodeGenerator;
+        this.userTokenService = userTokenService;
     }
 
-    /**
-     * Criar um novo usuário
-     */
+    @Transactional
     public UserResponseDTO create(CreateUserDTO userDTO) {
         if (userRepository.existsByCpf(userDTO.getCpf())) {
             throw new ResourceConflictException("cpf", "ALREADY_EXISTS", "CPF já cadastrado");
@@ -48,7 +39,6 @@ public class UserService {
         }
 
         User user = new User();
-
         user.setCpf(userDTO.getCpf());
         user.setEmail(userDTO.getEmail());
         user.setCountryCode(userDTO.getCountryCode());
@@ -57,37 +47,21 @@ public class UserService {
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
         user.setBirthDate(userDTO.getBirthDate());
-        user.setPasswordHash(
-            passwordEncoder.encode(userDTO.getPassword())
-        );
-
-        String referralCode;
-        do {
-            referralCode = generateReferralCode();
-        } while (userRepository.existsByReferralCode(referralCode));
-
-        user.setReferralCode(referralCode);
+        user.setPasswordHash(passwordEncoder.encode(userDTO.getPassword()));
+        user.setReferralCode(referralCodeGenerator.generate());
 
         User savedUser = userRepository.save(user);
 
-        String confirmationUrl = frontendBaseUrl + "/confirm-email?token=123";
-        emailService.sendConfirmEmail(savedUser.getEmail(), savedUser.getFirstName(), confirmationUrl);
+        userTokenService.issueEmailConfirmation(savedUser);
+        String verifyEmailToken = userTokenService.issueVerifyEmailSession(savedUser);
 
         return new UserResponseDTO(
             savedUser.getId(),
             savedUser.getFirstName() + " " + savedUser.getLastName(),
             savedUser.getEmail(),
-            savedUser.getCreatedAt()
+            savedUser.getCreatedAt(),
+            verifyEmailToken
         );
-    }
-
-    private String generateReferralCode() {
-
-        return UUID.randomUUID()
-                .toString()
-                .replace("-", "")
-                .substring(0, 8)
-                .toUpperCase();
     }
 
     /**

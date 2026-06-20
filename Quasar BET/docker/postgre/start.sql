@@ -23,8 +23,7 @@ CREATE TABLE IF NOT EXISTS users (
     first_name          VARCHAR(50) NOT NULL,
     last_name           VARCHAR(150) NOT NULL,
     birth_date          DATE NOT NULL,
-    status              VARCHAR(20) NOT NULL DEFAULT 'pending' 
-        CHECK (status IN ('pending', 'active', 'blocked')),
+    status              VARCHAR(20) NOT NULL DEFAULT 'PENDING',
     email_verified      BOOLEAN NOT NULL DEFAULT FALSE,
     phone_verified      BOOLEAN NOT NULL DEFAULT FALSE,
     login_attempts      INT NOT NULL DEFAULT 0,
@@ -51,4 +50,18 @@ CREATE TABLE IF NOT EXISTS users_referrals (
 
     CONSTRAINT uq_referred_user
         UNIQUE (referred_user_id)
+);
+
+CREATE TABLE IF NOT EXISTS user_tokens (
+    id                  BIGSERIAL PRIMARY KEY,
+    user_id             BIGINT NOT NULL,
+    token               VARCHAR(64) UNIQUE NOT NULL,
+    token_type          VARCHAR(30) NOT NULL,
+    created_at          TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    expires_at          TIMESTAMPTZ NOT NULL,
+    used_at             TIMESTAMPTZ DEFAULT NULL,
+
+    CONSTRAINT fk_user_token
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
 );

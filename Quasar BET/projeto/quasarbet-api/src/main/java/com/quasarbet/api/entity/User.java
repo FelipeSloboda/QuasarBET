@@ -42,8 +42,9 @@ public class User {
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private String status = "pending";
+    private UserStatus status = UserStatus.PENDING;
 
     @Column(name = "email_verified", nullable = false)
     private Boolean emailVerified;
@@ -71,7 +72,7 @@ public class User {
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
-        this.status = "pending";
+        this.status = UserStatus.PENDING;
         this.emailVerified = false;
         this.phoneVerified = false;
         this.loginAttempts = 0;
@@ -172,11 +173,11 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public String getStatus() {
+    public UserStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(UserStatus status) {
         this.status = status;
     }
 

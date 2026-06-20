@@ -7,14 +7,16 @@ public class UserResponseDTO {
     private String name;
     private String email;
     private LocalDateTime createdAt;
+    private String verifyEmailToken;
 
     public UserResponseDTO() {}
 
-    public UserResponseDTO(Long id, String name, String email, LocalDateTime createdAt) {
+    public UserResponseDTO(Long id, String name, String email, LocalDateTime createdAt, String verifyEmailToken) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.createdAt = createdAt;
+        this.verifyEmailToken = verifyEmailToken;
     }
 
     public Long getId() {
@@ -47,5 +49,13 @@ public class UserResponseDTO {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getVerifyEmailToken() {
+        return verifyEmailToken;
+    }
+
+    public void setVerifyEmailToken(String verifyEmailToken) {
+        this.verifyEmailToken = verifyEmailToken;
     }
 }
